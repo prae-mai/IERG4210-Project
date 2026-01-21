@@ -1,0 +1,22 @@
+{
+  "name": "eslint-package",
+  "version": "1.0.0",
+  "description": "ESlint",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "IERG4210-Project"
+  },
+  "author": "prae-mai",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^17.0.0"
+  }
+}
