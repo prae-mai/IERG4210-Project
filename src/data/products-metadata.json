@@ -1,0 +1,19 @@
+{
+	"ditto-comfy-friends-plush": {
+		"id": "ditto-comfy-friends-plush",
+		"name": "Ditto Comfy Friends Plush",
+		"description": "This is the fluffy stuff! The Ditto Comfy Friends Plush is made of extra-soft, fluffy material for huggable fun.",
+		"thumbnail": "ditto-comfy-friends-plush.png",
+		"featured": true,
+		"category": { "plush": true }
+	},
+	"eevee-evolutions-pokemon-pixel-pin-collector-clutch": {
+		"id": "eevee-evolutions-pokemon-pixel-pin-collector-clutch",
+		"name": "Eevee Evolutions Pokémon Pixel Pin Collector Clutch",
+		"description": "Bring classic Pokémon along on your daily adventures with this retro-fabulous clutch! The transparent front pouch features an Eevee accent and allows you to show off your pin collection with ease, and the print with pixel-style images of the Evolution Pokémon and its Evolutions invites extra fun to this style party.",
+		"thumbnail": "eevee-evolutions-pokemon-pixel-pin-collector-clutch.png",
+		"featured": true,
+		"category": { "bag": true }
+	}
+
+}

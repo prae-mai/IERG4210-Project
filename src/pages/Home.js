@@ -1,9 +1,18 @@
+import ProductItem from "../components/ProductItem";
+import products from "../data/products-metadata.json";
+
 function Home() {
+	const featuredProducts = Object.values(products).filter((product) => product.featured);
+
 	return (
-		<div>
-			<h1>Home</h1>
+		<section>
 			<p>this is the homepage lol</p>
-		</div>
+			<div className="featured-products">
+				{featuredProducts.map((product) => (
+					<ProductItem key={product.id} product={product} />
+				))}
+			</div>
+		</section>
 	);
 }
 

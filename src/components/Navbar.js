@@ -1,15 +1,18 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { navItems } from "../data/navItems";
 
 function Navbar() {
 	return (
-		<nav>
-			<ul>
-				<li>
-					<Link to="/">Home</Link>
-				</li>
-				<li>
-					<Link to="/about">About</Link>
-				</li>
+		<nav className="site-nav">
+			<ul className="nav-list">
+				
+				{navItems.map((item) => (
+					<li key={item.path}>
+						<NavLink to={item.path} end={item.path === "/"}>
+							{item.label}
+						</NavLink>
+					</li>
+				))}
 			</ul>
 		</nav>
 	);

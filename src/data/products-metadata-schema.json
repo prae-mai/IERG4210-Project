@@ -1,0 +1,56 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Products Schema",
+	"description": "Schema for product information metadata",
+	"type": "object",
+
+	"additionalProperties": {
+		"$ref": "#/$defs/product"
+	},
+
+	"$defs": {
+		"product": {
+		"type": "object",
+		"required": ["id", "name", "thumbnail", "category"],
+		"properties": {
+			"id": {
+				"type": "string"
+			},
+			"name": {
+				"type": "string"
+			},
+			"description": {
+				"type": "string"
+			},
+			"thumbnail": {
+				"type": "string"
+			},
+			"featured": {
+				"type": "boolean",
+				"default": false
+			},
+			"price": {
+				"type": "number"
+			},
+			"category": {
+				"type": "enum",
+				"enum": [
+					"apparel",
+					"plush",
+					"food",
+					"kitchenware",
+					"stationery",
+					"bag",
+					"electronics",
+					"miscellaneous"
+				]				
+			},
+			"tags": {
+				"type": "array",
+				"items": { "type": "string" },
+				"uniqueItems": true
+			}
+		}
+		}
+	}
+}

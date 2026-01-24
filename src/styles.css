@@ -59,35 +59,51 @@ body {
   padding: 0;
 }
 
-.square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
-  width: 34px;
+.site-nav {
+	margin-bottom: 20px;
 }
 
-.board-row:after {
-  clear: both;
-  content: '';
-  display: table;
+.nav-list {
+	display: flex;
+	gap: 16px;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
-.status {
-  margin-bottom: 10px;
-}
-.game {
-  display: flex;
-  flex-direction: row;
+.site-nav a {
+	display: block;
+	padding: 8px 20px;
+	border-radius: 999px;
+	text-decoration: none;
+	color: #111122;
+	background: #ddddee;
+	font-weight: 600;
 }
 
-.game-info {
-  margin-left: 20px;
+.site-nav a:hover,
+.site-nav a.active {
+	background: #ae8aff;
+	color: #111122;
 }
+
+.product-item img {
+	width: calc(30% - 20px);
+}
+
+@media (max-width: 600px) {
+	.nav-list {
+		flex-direction: column;
+		gap: 8px;
+		margin: 0;
+	}
+
+	.site-nav a {
+		text-align: center;
+	}
+	
+	.product-item img {
+		width: calc(40% - 20px);	
+	}
+}
+
