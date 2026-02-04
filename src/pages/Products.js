@@ -3,15 +3,50 @@ import ProductItem from "../components/ProductItem";
 import products from "../data/products-metadata.json";
 
 function Products() {
-
 	const { category, productId } = useParams();
 	const productList = Object.values(products);
 
+	// Detail view
+	if (category && productId) {
+		const product = productList.find((p) => (p.id === productId) && (p.category === category));
+
+		if (!product) {
+			return <h2>Product not found</h2>;
+		}
+		else {
+			return (
+				<section>
+					<ProductItem product={product} view="detail" />
+					<Link to={`/products/${category}`}>← Back to products</Link>
+				</section>
+			);
+		}
+	}
+
+	// Grid view
+	const filteredProducts = (!category) || (category === "all") ? productList : productList.filter((p) => p.category === category);
+
 	return (
-		<div>
-			<p>detailed products information found here</p>
-		</div>
+		<section>
+			<h2>
+				{category && category !== "all"
+					? category.charAt(0).toUpperCase() + category.slice(1)
+					: "All Products"}
+			</h2>
+
+			<div className="product-grid">
+				{filteredProducts.map((product) => (
+					<Link
+						key={product.id}
+						to={`/products/${product.category}/${product.id}`}
+					>
+						<ProductItem product={product} view="grid"/>
+					</Link>
+				))}
+			</div>
+		</section>
 	);
+
 }
 
 export default Products;

@@ -6,7 +6,7 @@ function Home() {
 
 	return (
 		<section>
-			<p>this is the homepage lol</p>
+			<p>hi empty homepage lol</p>
 			<div className="featured-products">
 				{featuredProducts.map((product) => (
 					<ProductItem key={product.id} product={product} />

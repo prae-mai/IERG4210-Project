@@ -33,7 +33,7 @@
 				"type": "number"
 			},
 			"category": {
-				"type": "enum",
+				"type": "string",
 				"enum": [
 					"apparel",
 					"plush",

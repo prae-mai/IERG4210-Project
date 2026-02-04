@@ -5,7 +5,9 @@
 		"description": "This is the fluffy stuff! The Ditto Comfy Friends Plush is made of extra-soft, fluffy material for huggable fun.",
 		"thumbnail": "ditto-comfy-friends-plush.png",
 		"featured": true,
-		"category": { "plush": true }
+		"price": 39.99,
+		"category": "plush",
+		"tags": ["soft", "ditto"]
 	},
 	"eevee-evolutions-pokemon-pixel-pin-collector-clutch": {
 		"id": "eevee-evolutions-pokemon-pixel-pin-collector-clutch",
@@ -13,7 +15,39 @@
 		"description": "Bring classic Pokémon along on your daily adventures with this retro-fabulous clutch! The transparent front pouch features an Eevee accent and allows you to show off your pin collection with ease, and the print with pixel-style images of the Evolution Pokémon and its Evolutions invites extra fun to this style party.",
 		"thumbnail": "eevee-evolutions-pokemon-pixel-pin-collector-clutch.png",
 		"featured": true,
-		"category": { "bag": true }
+		"price": 0.5,
+		"category": "bag",
+		"tags": ["small", "eevee"]
+	},
+	"a-wild-pichu": {
+		"id": "a-wild-pichu",
+		"name": "a wild pichu appeared! what will Your Pokemon do?",
+		"description": "have a pokemon battle. lol. description. heh.",
+		"thumbnail": "",
+		"featured": false,
+		"price": 1000,
+		"category": "plush",
+		"tags": ["woah", "pichu"]
+	},
+	"shuckle-mug": {
+		"id": "shuckle-shirt",
+		"name": "Shuckle's Red Shirt",
+		"description": "reddest of the red and crimsonest of the crimson and dark burgundy. go figure.",
+		"thumbnail": "",
+		"featured": false,
+		"price": -1,
+		"category": "apparel",
+		"tags": ["woah", "shuckle", "red"]
+	},
+	"small-mudkip": {
+		"id": "small-mudkip",
+		"name": "Small Mudkip",
+		"description": "the name might show up as small but honestly just go for 'smol'",
+		"thumbnail": "",
+		"featured": false,
+		"price": 3.5,
+		"category": "plush",
+		"tags": ["woah", "mudkip"]
 	}
 
 }
