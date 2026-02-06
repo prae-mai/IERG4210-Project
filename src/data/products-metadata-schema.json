@@ -11,7 +11,7 @@
 	"$defs": {
 		"product": {
 		"type": "object",
-		"required": ["id", "name", "thumbnail", "category"],
+		"required": ["id", "name", "category"],
 		"properties": {
 			"id": {
 				"type": "string"

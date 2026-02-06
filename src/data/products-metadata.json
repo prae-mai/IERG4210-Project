@@ -23,7 +23,6 @@
 		"id": "a-wild-pichu",
 		"name": "a wild pichu appeared! what will Your Pokemon do?",
 		"description": "have a pokemon battle. lol. description. heh.",
-		"thumbnail": "",
 		"featured": false,
 		"price": 1000,
 		"category": "plush",
@@ -33,7 +32,6 @@
 		"id": "shuckle-shirt",
 		"name": "Shuckle's Red Shirt",
 		"description": "reddest of the red and crimsonest of the crimson and dark burgundy. go figure.",
-		"thumbnail": "",
 		"featured": false,
 		"price": -1,
 		"category": "apparel",
@@ -43,7 +41,6 @@
 		"id": "small-mudkip",
 		"name": "Small Mudkip",
 		"description": "the name might show up as small but honestly just go for 'smol'",
-		"thumbnail": "",
 		"featured": false,
 		"price": 3.5,
 		"category": "plush",
@@ -57,6 +54,16 @@
 		"featured": false,
 		"price": 3.5,
 		"category": "plush",
-		"tags": ["woah", "neow"]
+		"tags": ["woah", "neow", "sts"]
+	},
+	"time-snail": {
+		"id": "time-snail",
+		"name": "Time Snail",
+		"description": "real name is actually Time Eater but Time Snail is accurate in a different way",
+		"thumbnail": "time-snail.png",
+		"featured": false,
+		"price": 12,
+		"category": "plush",
+		"tags": ["woah", "time eater", "sts"]
 	}
 }
