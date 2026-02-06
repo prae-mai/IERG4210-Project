@@ -1,4 +1,21 @@
+export const PRODUCT_FIELDS = Object.freeze({
+	THUMBNAIL: "thumbnail",
+	NAME: "name",
+	DESCRIPTION: "description",
+	PRICE: "price",
+	TAGS: "tags",
+});
+
 export const PRODUCT_VIEWS = {
-	grid: ["thumbnail", "name"],
-	detail: ["thumbnail", "name", "description", "tags", "price"],
+	grid: [
+		PRODUCT_FIELDS.THUMBNAIL,
+		PRODUCT_FIELDS.NAME,
+	],
+	detail: [
+		PRODUCT_FIELDS.THUMBNAIL,
+		PRODUCT_FIELDS.NAME,
+		PRODUCT_FIELDS.DESCRIPTION,
+		PRODUCT_FIELDS.TAGS,
+		PRODUCT_FIELDS.PRICE,
+	],
 };

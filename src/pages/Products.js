@@ -17,7 +17,6 @@ function Products() {
 			return (
 				<section>
 					<ProductItem product={product} view="detail" />
-					<Link to={`/products/${category}`}>← Back to products</Link>
 				</section>
 			);
 		}

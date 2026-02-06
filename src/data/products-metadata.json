@@ -48,6 +48,15 @@
 		"price": 3.5,
 		"category": "plush",
 		"tags": ["woah", "mudkip"]
+	},
+	"neow-herself": {
+		"id": "neow-herself",
+		"name": "Neow herself :o but she has a really really long name pls trust me on this JSUT AHDHHAU USHDUHDUS UE EHEHHE UE UE is only part of her name too did you know there's more to it HAHKJAHDALHDHAHAHAH WOAHHH DIDN'T YOU KNOOOOW????",
+		"description": "for the price of 4, you too, can be the proud owner of the Ancient of Resurrection",
+		"thumbnail": "neow-herself.png",
+		"featured": false,
+		"price": 3.5,
+		"category": "plush",
+		"tags": ["woah", "neow"]
 	}
-
 }
