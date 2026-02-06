@@ -15,7 +15,9 @@ const FIELD_COMPONENTS = {
 	[PRODUCT_FIELDS.TAGS]: ProductTags,
 };
 
-function ProductItem({ product, view }) {
+// Defaults to grid view if no view given
+// Currently only affects Featured products in the Home page
+function ProductItem({ product, view="grid" }) {
 	const fields = PRODUCT_VIEWS[view];
 
 	if (!fields) {

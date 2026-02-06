@@ -1,4 +1,5 @@
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
 import products from "../data/products-metadata.json";
 
 function titleCase(str) {
@@ -33,7 +34,7 @@ function HierarchicalNav() {
 
 		let label = titleCase(segment);
 
-		// resolve product ID to product name
+		// resolve productID to product name
 		const product = productList.find((p) => p.id === segment);
 		if (product) {
 			label = product.name;

@@ -109,6 +109,44 @@ ul {
 	color: #888;
 }
 
+.products-page {
+	display: flex;
+	align-items: flex-start;
+	gap: 0px;
+}
+
+.product-category-nav {
+	position: sticky;
+	top: 20px;
+	width: 180px;
+	flex-shrink: 0;
+}
+
+.product-category-nav__list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	font-size: 0.85rem;
+}
+
+.product-category-nav a {
+	text-decoration: none;
+	color: #555;
+	font-weight: 500;
+	padding: 4px 0;
+	display: block;
+}
+
+.product-category-nav a.active {
+	color: #111;
+	font-weight: 600;
+}
+
 .product-grid {
 	display: flex;
 	flex-wrap: wrap;

@@ -36,14 +36,14 @@
 				"type": "string",
 				"enum": [
 					"apparel",
-					"plush",
-					"food",
-					"kitchenware",
-					"stationery",
 					"bag",
 					"electronics",
+					"food",
+					"kitchenware",
+					"plush",
+					"stationery",
 					"miscellaneous"
-				]				
+				]
 			},
 			"tags": {
 				"type": "array",
