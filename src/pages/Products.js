@@ -7,17 +7,17 @@ import ProductCategoryNav from "../components/ProductCategoryNav";
 
 function Products() {
 	// Gets category and productID from URL
-	const { category, productID } = useParams();
+	const { category, productId } = useParams();
 	const productList = Object.values(products);
 
-	const isDetailView = Boolean(category && productID);
+	const isDetailView = Boolean(category && productId);
 	const view = isDetailView ? "detail" : "grid";
 
 	let productsToRender = [];
 
 	if (isDetailView) {
 		const product = productList.find(
-			(p) => p.id === productID && p.category === category,
+			(p) => p.id === productId && p.category === category,
 		);
 
 		if (!product) {
