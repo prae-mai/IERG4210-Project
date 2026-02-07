@@ -5,7 +5,6 @@ function Navbar() {
 	return (
 		<nav className="site-nav">
 			<ul className="nav-list">
-				
 				{navItems.map((item) => (
 					<li key={item.path}>
 						<NavLink to={item.path} end={item.path === "/"}>
