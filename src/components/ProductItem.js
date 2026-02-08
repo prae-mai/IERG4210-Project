@@ -6,6 +6,8 @@ import ProductName from "./ProductName";
 import ProductDescription from "./ProductDescription";
 import ProductPrice from "./ProductPrice";
 import ProductTags from "./ProductTags";
+import ProductQuantityInCart from "./ProductQuantityInCart";
+import ProductQuantitySelector from "./ProductQuantitySelector";
 
 const FIELD_COMPONENTS = {
 	[PRODUCT_FIELDS.THUMBNAIL]: ProductThumbnail,
@@ -13,11 +15,13 @@ const FIELD_COMPONENTS = {
 	[PRODUCT_FIELDS.DESCRIPTION]: ProductDescription,
 	[PRODUCT_FIELDS.PRICE]: ProductPrice,
 	[PRODUCT_FIELDS.TAGS]: ProductTags,
+	[PRODUCT_FIELDS.QUANTITY_IN_CART]: ProductQuantityInCart,
+	[PRODUCT_FIELDS.QUANTITY_SELECTOR]: ProductQuantitySelector,
 };
 
 // Defaults to grid view if no view given
 // Currently only affects Featured products in the Home page
-function ProductItem({ product, view="grid" }) {
+function ProductItem({ product, view = "grid" }) {
 	const fields = PRODUCT_VIEWS[view];
 
 	if (!fields) {
@@ -27,9 +31,9 @@ function ProductItem({ product, view="grid" }) {
 	return (
 		<article className={`product-item--${view}`}>
 			<div className="product-item__media">
-					{fields.includes(PRODUCT_FIELDS.THUMBNAIL) && (
-						<ProductThumbnail product={product} />
-					)}
+				{fields.includes(PRODUCT_FIELDS.THUMBNAIL) && (
+					<ProductThumbnail product={product} />
+				)}
 			</div>
 			<div className="product-item__content">
 				{fields

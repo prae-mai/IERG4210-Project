@@ -10,7 +10,7 @@ import CartPreviewOverlay from "./shoppingcart/CartPreviewOverlay";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Products from "./pages/Products";
-
+import ShoppingCart from "./pages/ShoppingCart";
 
 function App() {
 	const [isCartPreviewOpen, setCartPreviewOpen] = useState(false);
@@ -33,6 +33,7 @@ function App() {
 						element={<Products />}
 					/>
 					<Route path="/about" element={<About />} />
+					<Route path="/shopping-cart" element={<ShoppingCart />} />
 				</Routes>
 
 				<CartPreviewOverlay
