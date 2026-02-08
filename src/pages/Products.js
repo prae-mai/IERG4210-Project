@@ -6,6 +6,8 @@ import ProductItem from "../components/ProductItem";
 import products from "../data/products-metadata.json";
 import ProductCategoryNav from "../components/ProductCategoryNav";
 
+import ENGLISH from "../i18n/english";
+
 function Products() {
 	useDocumentTitle("Products");
 
@@ -24,7 +26,7 @@ function Products() {
 		);
 
 		if (!product) {
-			return <h2>Product not found</h2>;
+			return <h2>{ENGLISH.PRODUCT.NOT_FOUND}</h2>;
 		}
 
 		productsToRender = [product];

@@ -17,6 +17,10 @@ const ENGLISH = {
 		TOTAL: "Total",
 	},
 
+	PRODUCT: {
+		NOT_FOUND: "Product not found.",
+	},
+
 	CART: {
 		SHORT_TITLE: "Cart",
 		TITLE: "Shopping Cart",
@@ -27,6 +31,8 @@ const ENGLISH = {
 			`...and ${pluralize(count, "more item", "more items")}`,
 		ACTIONS: {
 			VIEW_FULL: "View full cart",
+			ADD: "Add to cart",
+			UPDATE_QUANTITY: "Update quantity",
 			CHECKOUT: "Checkout",
 			CANCEL_CHECKOUT: "Cancel checkout",
 			CLEAR: "Clear cart",

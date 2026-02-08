@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { useCart } from "../shoppingcart/useCart";
 
+import ENGLISH from "../i18n/english";
+
 function ProductQuantitySelector({ product }) {
 	const { setQuantity, isLocked, getItemQuantity } = useCart();
 	const existingQuantity = getItemQuantity(product.id);
 
 	const [value, setValue] = useState(existingQuantity || 1);
-	const [setJustUpdated] = useState(false);
+	const [justUpdated, setJustUpdated] = useState(false);
 
 	useEffect(() => {
 		if (existingQuantity > 0) {
@@ -33,7 +35,7 @@ function ProductQuantitySelector({ product }) {
 			/>
 
 			<button onClick={handleAdd} disabled={isLocked}>
-				{existingQuantity > 0 ? "Update quantity" : "Add to cart"}
+				{existingQuantity > 0 ? `${ENGLISH.CART.ACTIONS.UPDATE_QUANTITY}` : `${ENGLISH.CART.ACTIONS.ADD}`}
 			</button>
 		</div>
 	);
