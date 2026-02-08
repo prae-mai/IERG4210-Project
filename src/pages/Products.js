@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { useDocumentTitle } from "../utils/useDocumentTitle";
 import { PRODUCT_CATEGORIES } from "../config/productCategories";
 
 import ProductItem from "../components/ProductItem";
@@ -6,6 +7,8 @@ import products from "../data/products-metadata.json";
 import ProductCategoryNav from "../components/ProductCategoryNav";
 
 function Products() {
+	useDocumentTitle("Products");
+
 	// Gets category and productID from URL
 	const { category, productId } = useParams();
 	const productList = Object.values(products);

@@ -1,12 +1,17 @@
 import { useContext } from "react";
+import { useDocumentTitle } from "../utils/useDocumentTitle";
+
 import { CartContext } from "../shoppingcart/CartContext";
 import { selectAllCartItems, selectTotalPrice } from "../shoppingcart/cartSelectors";
 import { useCartActions } from "../shoppingcart/useCartActions.js";
+
 import CartItemRow from "../shoppingcart/CartItemRow.js";
 
 import ENGLISH from "../i18n/english.js"
 
 function ShoppingCart() {
+	useDocumentTitle("Shopping Cart");
+
 	const { cartState, dispatch } = useContext(CartContext);
 	const items = selectAllCartItems(cartState);
 	const totalPrice = selectTotalPrice(cartState);

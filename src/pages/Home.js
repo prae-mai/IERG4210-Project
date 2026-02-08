@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
+import { useDocumentTitle } from "../utils/useDocumentTitle";
 
 import ProductItem from "../components/ProductItem";
 import products from "../data/products-metadata.json";
 
 function Home() {
+	useDocumentTitle("Home");
+
 	const featuredProducts = Object.values(products).filter(
 		(product) => product.featured,
 	);
