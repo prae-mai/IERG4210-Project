@@ -19,6 +19,7 @@ const ENGLISH = {
 
 	PRODUCT: {
 		NOT_FOUND: "Product not found.",
+		INVALID_VIEW: "Invalid product view.",
 	},
 
 	CART: {

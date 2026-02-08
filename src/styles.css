@@ -118,7 +118,7 @@ ul {
 .product-category-nav {
 	position: sticky;
 	top: 20px;
-	width: 180px;
+	width: 140px;
 	flex-shrink: 0;
 }
 
@@ -198,12 +198,21 @@ ul {
 }
 
 @media (max-width: 600px) {
+	body {
+		margin: 15px
+	}
+
+	.product-category-nav {
+		width: 115px;
+		top: 75px;
+	}
+
 	.product-item--detail .product-item__media {
 		width: 90%;
 		margin: 0 auto;
 	}
-	.product-item {
-		width: 45vw;
+	.product-item--grid {
+		width: 50vw;
 	}
 }
 

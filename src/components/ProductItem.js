@@ -9,6 +9,8 @@ import ProductTags from "./ProductTags";
 import ProductQuantityInCart from "./ProductQuantityInCart";
 import ProductQuantitySelector from "./ProductQuantitySelector";
 
+import ENGLISH from "../i18n/english";
+
 const FIELD_COMPONENTS = {
 	[PRODUCT_FIELDS.THUMBNAIL]: ProductThumbnail,
 	[PRODUCT_FIELDS.NAME]: ProductName,
@@ -25,7 +27,7 @@ function ProductItem({ product, view = "grid" }) {
 	const fields = PRODUCT_VIEWS[view];
 
 	if (!fields) {
-		return <h2>Invalid product view</h2>;
+		return <h2>{ENGLISH.PRODUCT.INVALID_VIEW}</h2>;
 	}
 
 	return (
