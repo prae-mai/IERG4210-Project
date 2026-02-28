@@ -1,23 +1,32 @@
 import { NavLink } from "react-router-dom";
-import { PRODUCT_CATEGORY_LIST } from "../../config/productCategories";
+
+import useCategories from "../../api/useCategories";
 
 function ProductCategoryNav() {
-	const navCategories = PRODUCT_CATEGORY_LIST;
+	const { categories, loading, error } = useCategories();
+
+	if (loading) return null;
+	if (error) return <p>Failed to load categories</p>;
+
+	// synthetic "all" for frontend only
+	const navCategories = [
+		{ id: "all", name: "All", slug: "all" },
+		...categories,
+	];
 
 	return (
 		<nav className="product-category-nav" aria-label="Product categories">
 			<ul className="product-category-nav__list">
 				{navCategories.map((category) => (
-					<li key={category}>
+					<li key={category.id}>
 						<NavLink
-							to={`/products/${category}`}
-							end={category === "all"}
+							to={`/products/${category.slug}`}
+							end={category.slug === "all"}
 							className={({ isActive }) =>
 								isActive ? "active" : undefined
 							}
 						>
-							{category.charAt(0).toUpperCase() +
-								category.slice(1)}
+							{category.name}
 						</NavLink>
 					</li>
 				))}

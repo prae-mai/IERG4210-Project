@@ -8,14 +8,23 @@ export async function createCategory(name) {
 	return Number(result.insertId);
 }
 
-export async function updateCategory(catid, name) {
-	await dbQuery(`UPDATE categories SET name=? WHERE catid=?`, [name, catid]);
+export async function updateCategory(categoryId, name) {
+	await dbQuery(`UPDATE categories SET name=? WHERE catid=?`, [
+		name,
+		categoryId,
+	]);
 }
 
-export async function deleteCategory(catid) {
-	await dbQuery(`DELETE FROM categories WHERE catid=?`, [catid]);
+export async function deleteCategory(categoryId) {
+	await dbQuery(`DELETE FROM categories WHERE catid=?`, [categoryId]);
 }
 
 export async function getAllCategories() {
-	return await dbQuery(`SELECT * FROM categories`);
+	// return await dbQuery(`SELECT * FROM categories`);
+	return await dbQuery(`
+		SELECT
+			catid AS id,
+			name
+		FROM categories
+	`);
 }

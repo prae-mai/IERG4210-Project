@@ -23,17 +23,17 @@ function AdminCategoriesTable({ onEdit }) {
 	async function handleDelete(category) {
 		if (!window.confirm(`Delete ${category.name} category?`)) return;
 
-		await deleteCategory(category.catid);
+		await deleteCategory(category.id);
 		loadCategories();
 	}
 
 	function startEdit(category) {
-		setEditingId(category.catid);
+		setEditingId(category.id);
 		setEditName(category.name);
 	}
 
-	async function saveEdit(catid) {
-		await updateCategory(catid, { name: editName });
+	async function saveEdit(id) {
+		await updateCategory(id, { name: editName });
 		setEditingId(null);
 		loadCategories();
 	}
@@ -64,9 +64,9 @@ function AdminCategoriesTable({ onEdit }) {
 
 				<tbody>
 					{categories.map((c) => (
-						<tr key={c.catid}>
+						<tr key={c.id}>
 							<td>
-								{editingId === c.catid ? (
+								{editingId === c.id ? (
 									<input
 										value={editName}
 										onChange={(e) =>
@@ -79,10 +79,10 @@ function AdminCategoriesTable({ onEdit }) {
 							</td>
 
 							<td>
-								{editingId === c.catid ? (
+								{editingId === c.id ? (
 									<>
 										<button
-											onClick={() => saveEdit(c.catid)}
+											onClick={() => saveEdit(c.id)}
 										>
 											Save
 										</button>

@@ -16,7 +16,7 @@ function AdminProductsTable({ onEdit }) {
 
 	async function loadProducts() {
 		try {
-			const data = await getProducts();			
+			const data = await getProducts();
 			setProducts(data);
 		} catch (err) {
 			console.error(err);
@@ -35,24 +35,24 @@ function AdminProductsTable({ onEdit }) {
 	async function handleDelete(product) {
 		if (!window.confirm(`Delete ${product.name} product?`)) return;
 
-		await deleteProduct(product.pid);
+		await deleteProduct(product.id);
 		loadProducts();
 	}
 
 	function startEdit(product) {
-		setEditingId(product.pid);
+		setEditingId(product.id);
 		setEditData({ ...product });
 	}
 
-	async function saveEdit(pid) {
-		await updateProduct(pid, editData);
+	async function saveEdit(id) {
+		await updateProduct(id, editData);
 		setEditingId(null);
 		loadProducts();
 	}
 
 	function startCreate() {
 		setNewProduct({
-			catid: "",
+			categoryId: "",
 			name: "",
 			price: "",
 			description: "",
@@ -62,7 +62,7 @@ function AdminProductsTable({ onEdit }) {
 	async function saveCreate() {
 		await createProduct({
 			...newProduct,
-			catid: Number(newProduct.catid),
+			categoryId: Number(newProduct.categoryId),
 			price: Number(newProduct.price),
 		});
 		setNewProduct(null);
@@ -89,34 +89,34 @@ function AdminProductsTable({ onEdit }) {
 
 				<tbody>
 					{products.map((p) => (
-						<tr key={p.pid}>
-							<td>{p.pid}</td>
+						<tr key={p.id}>
+							<td>{p.id}</td>
 
 						<td>
-							{editingId === p.pid ? (
+							{editingId === p.id ? (
 								<select
-									value={editData.catid}
+									value={editData.categoryId}
 									onChange={(e) =>
 										setEditData({
 											...editData,
-											catid: e.target.value,
+											categoryId: Number(e.target.value),
 										})
 									}
 								>
 									<option value="">Select category</option>
 									{categories.map((c) => (
-										<option key={c.catid} value={c.catid}>
+										<option key={c.id} value={c.id}>
 											{c.name}
 										</option>
 									))}
 								</select>
 							) : (
-								categories.find((c) => c.catid === p.catid)?.name || ""
+								categories.find((c) => c.id === p.categoryId)?.name || ""
 							)}
 						</td>
 
 							<td>
-								{editingId === p.pid ? (
+								{editingId === p.id ? (
 									<input
 										value={editData.name}
 										onChange={(e) =>
@@ -132,7 +132,7 @@ function AdminProductsTable({ onEdit }) {
 							</td>
 
 							<td>
-								{editingId === p.pid ? (
+								{editingId === p.id ? (
 									<input
 										value={editData.price}
 										onChange={(e) =>
@@ -148,7 +148,7 @@ function AdminProductsTable({ onEdit }) {
 							</td>
 
 							<td>
-								{editingId === p.pid ? (
+								{editingId === p.id ? (
 									<input
 										value={editData.description}
 										onChange={(e) =>
@@ -164,9 +164,9 @@ function AdminProductsTable({ onEdit }) {
 							</td>
 
 							<td>
-								{editingId === p.pid ? (
+								{editingId === p.id ? (
 									<>
-										<button onClick={() => saveEdit(p.pid)}>
+										<button onClick={() => saveEdit(p.id)}>
 											Save
 										</button>
 										<button
@@ -196,17 +196,17 @@ function AdminProductsTable({ onEdit }) {
 							<td>New</td>
 							<td>
 							 	<select
-							 		value={newProduct.catid}
+							 		value={newProduct.categoryId}
 							 		onChange={(e) =>
 							 			setNewProduct({
 							 				...newProduct,
-							 				catid: e.target.value,
+							 				categoryId: Number(e.target.value),
 							 			})
 							 		}
 							 	>
 							 		<option value="">Select category</option>
 							 		{categories.map((c) => (
-							 			<option key={c.catid} value={c.catid}>
+							 			<option key={c.id} value={c.id}>
 							 				{c.name}
 							 			</option>
 							 		))}
