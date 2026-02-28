@@ -2,6 +2,12 @@ import * as categoryService from "../services/categoriesService.js";
 
 export async function create(req, res) {
 	try {
+		const { name } = req.body;
+
+		if (!name) {
+			return res.status(400).json({ error: "Name is required" });
+		}
+
 		const catid = await categoryService.createCategory(name);
 
 		res.status(201).json({
@@ -16,7 +22,15 @@ export async function create(req, res) {
 
 export async function update(req, res) {
 	try {
+		const { catid } = req.params;
+		const { name } = req.body;
+
+		if (!name) {
+			return res.status(400).json({ error: "Name is required" });
+		}
+
 		await categoryService.updateCategory(catid, name);
+
 		res.json({ message: "Category updated" });
 	} catch (err) {
 		console.error(err);
@@ -26,7 +40,10 @@ export async function update(req, res) {
 
 export async function remove(req, res) {
 	try {
+		const { catid } = req.params;
+
 		await categoryService.deleteCategory(catid);
+
 		res.json({ message: "Category deleted" });
 	} catch (err) {
 		console.error(err);
