@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Products from "./pages/Products";
 import AdminProducts from "./pages/AdminProducts";
+import AdminCategories from "./pages/AdminCategories";
 import ShoppingCart from "./pages/ShoppingCart";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
 					<Route path="/about" element={<About />} />
 					<Route path="/shopping-cart" element={<ShoppingCart />} />
 					<Route path="/admin/products" element={<AdminProducts />} />
+					<Route path="/admin/categories" element={<AdminCategories />} />
 				</Routes>
 
 				<CartPreviewOverlay
