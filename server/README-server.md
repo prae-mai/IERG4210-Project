@@ -7,6 +7,6 @@ Shopping website project
 ### Locally
 Install dependencies with ``npm install``
 
-To setup, edit db-sample.js to your actual information.
+To setup, edit db.js to your actual information.
 
 To run, cd inside the IERG4210-Project/server folder ``node index.js``

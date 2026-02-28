@@ -30,7 +30,14 @@ function AdminProductsTable({ onEdit }) {
 		} catch (err) {
 			console.error(err);
 		}
-	}	
+	}
+
+	async function handleDelete(product) {
+		if (!window.confirm(`Delete ${product.name} product?`)) return;
+
+		await deleteProduct(product.pid);
+		loadCategories();
+	}
 
 	function startEdit(product) {
 		setEditingId(product.pid);

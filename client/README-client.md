@@ -25,4 +25,6 @@ To stop running production build:
 
 ``kill -HUP 98064`` where 98064 is the actual PID
 
-You may have to edit apiConfig.js in src > api
+You may likely have to edit apiConfig.js in src > api to have relative paths instead:
+``export const CATEGORIES_BASE_URL = "/api/categories";``
+``export const PRODUCTS_BASE_URL = "/api/products"; ``
