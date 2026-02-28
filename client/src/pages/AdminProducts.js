@@ -1,6 +1,6 @@
-import AdminProductsCreate from "../components/AdminProductsCreate";
-import AdminProductsUpdate from "../components/AdminProductsUpdate";
-import AdminProductsDelete from "../components/AdminProductsDelete";
+import AdminProductsCreate from "../components/products/public/admin/AdminProductsCreate";
+import AdminProductsUpdate from "../components/products/public/admin/AdminProductsUpdate";
+import AdminProductsDelete from "../components/products/public/admin/AdminProductsDelete";
 
 function AdminProducts() {
 	return (

@@ -1,4 +1,4 @@
-import { useCart } from "../shoppingcart/useCart";
+import { useCart } from "../../../shoppingcart/useCart";
 
 function ProductQuantityInCart({ product }) {
 	const { getItemQuantity } = useCart();

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useDocumentTitle } from "../utils/useDocumentTitle";
 import { useEffect } from "react";
 
-import ProductItem from "../components/ProductItem";
+import ProductItem from "../components/products/public/ProductItem";
 import products from "../data/products-metadata.json";
 
 function Home() {

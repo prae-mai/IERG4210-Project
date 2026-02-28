@@ -2,8 +2,8 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./shoppingcart/CartContext";
 
-import Navbar from "./components/Navbar";
-import HierarchicalNav from "./components/HeirarchicalNav";
+import Navbar from "./components/navigation/Navbar";
+import HierarchicalNav from "./components/navigation/HeirarchicalNav";
 import CartBadge from "./shoppingcart/CartBadge";
 import CartPreviewOverlay from "./shoppingcart/CartPreviewOverlay";
 

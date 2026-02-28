@@ -1,5 +1,5 @@
-import { PRODUCT_FIELDS } from "../config/productViews";
-import { PRODUCT_VIEWS } from "../config/productViews";
+import { PRODUCT_FIELDS } from "../../../config/productViews";
+import { PRODUCT_VIEWS } from "../../../config/productViews";
 
 import ProductThumbnail from "./ProductThumbnail";
 import ProductName from "./ProductName";
@@ -9,7 +9,7 @@ import ProductTags from "./ProductTags";
 import ProductQuantityInCart from "./ProductQuantityInCart";
 import ProductQuantitySelector from "./ProductQuantitySelector";
 
-import ENGLISH from "../i18n/english";
+import ENGLISH from "../../../i18n/english";
 
 const FIELD_COMPONENTS = {
 	[PRODUCT_FIELDS.THUMBNAIL]: ProductThumbnail,

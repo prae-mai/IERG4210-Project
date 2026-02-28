@@ -2,9 +2,9 @@ import { useParams, Link } from "react-router-dom";
 import { useDocumentTitle } from "../utils/useDocumentTitle";
 import { PRODUCT_CATEGORIES } from "../config/productCategories";
 
-import ProductItem from "../components/ProductItem";
+import ProductItem from "../components/products/public/ProductItem";
 import products from "../data/products-metadata.json";
-import ProductCategoryNav from "../components/ProductCategoryNav";
+import ProductCategoryNav from "../components/navigation/ProductCategoryNav";
 
 import ENGLISH from "../i18n/english";
 

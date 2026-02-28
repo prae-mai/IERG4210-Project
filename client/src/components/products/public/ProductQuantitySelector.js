@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { useCart } from "../shoppingcart/useCart";
+import { useCart } from "../../../shoppingcart/useCart";
 
-import ENGLISH from "../i18n/english";
+import ENGLISH from "../../../i18n/english";
 
 function ProductQuantitySelector({ product }) {
 	const { setQuantity, isLocked, getItemQuantity } = useCart();
