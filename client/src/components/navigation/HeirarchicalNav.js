@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 
-import products from "../data/products-metadata.json";
+import products from "../../data/products-metadata.json";
 
 function titleCase(str) {
 	if (!str) return "";

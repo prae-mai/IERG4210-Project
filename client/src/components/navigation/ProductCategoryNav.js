@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { PRODUCT_CATEGORY_LIST } from "../config/productCategories";
+import { PRODUCT_CATEGORY_LIST } from "../../config/productCategories";
 
 function ProductCategoryNav() {
 	const navCategories = PRODUCT_CATEGORY_LIST;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deleteProduct } from "../api/productsApi";
+import { deleteProduct } from "../../../../api/productsApi";
 
 function AdminProductsDelete() {
 	const [pid, setPid] = useState("");
