@@ -1,4 +1,4 @@
-import { PRODUCTS_BASE_URL } from "./apiConfig";
+import { PRODUCTS_BASE_URL } from "../config/apiConfig";
 
 export async function createProduct(data) {
 	const res = await fetch(PRODUCTS_BASE_URL, {

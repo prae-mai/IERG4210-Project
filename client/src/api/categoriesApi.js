@@ -1,4 +1,4 @@
-import { CATEGORIES_BASE_URL } from "./apiConfig";
+import { CATEGORIES_BASE_URL } from "../config/apiConfig";
 
 export async function createCategory(data) {
 	const res = await fetch(CATEGORIES_BASE_URL, {
