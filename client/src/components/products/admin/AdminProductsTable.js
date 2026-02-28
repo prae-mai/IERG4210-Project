@@ -16,7 +16,7 @@ function AdminProductsTable({ onEdit }) {
 
 	async function loadProducts() {
 		try {
-			const data = await getProducts();
+			const data = await getProducts();			
 			setProducts(data);
 		} catch (err) {
 			console.error(err);

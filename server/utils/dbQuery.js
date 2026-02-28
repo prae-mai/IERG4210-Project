@@ -5,7 +5,7 @@ export async function dbQuery(query, params = []) {
 
 	try {
 		conn = await pool.getConnection();
-		const [rows] = await conn.query(query, params);
+		const rows = await conn.query(query, params);
 		return rows;
 	} finally {
 		if (conn) conn.release();
