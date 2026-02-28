@@ -36,7 +36,7 @@ function AdminProductsTable({ onEdit }) {
 		if (!window.confirm(`Delete ${product.name} product?`)) return;
 
 		await deleteProduct(product.pid);
-		loadCategories();
+		loadProducts();
 	}
 
 	function startEdit(product) {
