@@ -39,3 +39,11 @@ export async function deleteProduct(pid) {
 
 	return await res.json();
 }
+
+export async function getProducts() {
+	const res = await fetch(PRODUCTS_BASE_URL);
+	if (!res.ok) {
+		throw new Error("Failed to fetch products");
+	}
+	return await res.json();
+}

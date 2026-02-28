@@ -39,3 +39,11 @@ export async function deleteCategory(catid) {
 
 	return await res.json();
 }
+
+export async function getCategories() {
+	const res = await fetch(CATEGORIES_BASE_URL);
+	if (!res.ok) {
+		throw new Error("Failed to fetch categories");
+	}
+	return await res.json();
+}

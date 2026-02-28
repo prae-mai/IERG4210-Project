@@ -33,3 +33,13 @@ export async function remove(req, res) {
 		res.status(500).json({ error: "Delete failed" });
 	}
 }
+
+export async function getAll(req, res) {
+	try {
+		const rows = await productService.getAllProducts();
+		res.json(rows);
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ error: "Fetch failed" });
+	}
+}

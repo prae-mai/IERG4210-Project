@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { updateProduct } from "../../../../api/productsApi";
+import { createProduct } from "../../../api/productsApi";
 
-function AdminProductsUpdate() {
-	const [pid, setPid] = useState("");
+function AdminProductsCreate() {
 	const [formData, setFormData] = useState({
 		catid: "",
 		name: "",
@@ -11,10 +10,6 @@ function AdminProductsUpdate() {
 	});
 
 	const [message, setMessage] = useState("");
-
-	const handlePidChange = (e) => {
-		setPid(e.target.value);
-	}
 
 	const handleChange = (e) => {
 		setFormData({
@@ -26,36 +21,29 @@ function AdminProductsUpdate() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		try {
-			await updateProduct(pid, {
-				...formData,
-				catid: Number(formData.catid),
-				price: Number(formData.price),
+		try {			
+			const data = await createProduct({...formData, catid: Number(formData.catid), price: Number(formData.price)});
+
+			setMessage(`Product created with ID ${data.productId}`);
+			
+			setFormData({
+				catid: "",
+				name: "",
+				price: "",
+				description: "",
 			});
 
-			setMessage("Product updated successfully");
 		} catch (error) {
 			console.error(error);
-			setMessage(error.message || "Server error");
+			setMessage("Server error");
 		}
 	};
 
 	return (
-		<div>
-			<h2>Update Product</h2>
+		<section>
+			<h1>Create Product</h1>
 
 			<form onSubmit={handleSubmit}>
-				<div>
-					<label>Product ID:</label>
-					<input
-						type="number"
-						name="pid"
-						value={formData.pid}
-						onChange={handlePidChange}
-						required
-					/>
-				</div>
-
 				<div>
 					<label>Category ID:</label>
 					<input
@@ -99,12 +87,12 @@ function AdminProductsUpdate() {
 					/>
 				</div>
 
-				<button type="submit">Update Product</button>
+				<button type="submit">Create Product</button>
 			</form>
 
 			{message && <p>{message}</p>}
-		</div>
+		</section>
 	);
 }
 
-export default AdminProductsUpdate;
+export default AdminProductsCreate;

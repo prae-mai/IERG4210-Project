@@ -19,3 +19,7 @@ export async function updateProduct(pid, data) {
 export async function deleteProduct(pid) {
 	await dbQuery(`DELETE FROM products WHERE pid=?`, [pid]);
 }
+
+export async function getAllProducts() {
+	return await dbQuery(`SELECT * FROM products`);
+}
