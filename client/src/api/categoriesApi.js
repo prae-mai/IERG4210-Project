@@ -1,7 +1,7 @@
-const BASE_URL = "http://localhost:5000/api/categories";
+import { CATEGORIES_BASE_URL } from "./apiConfig";
 
 export async function createCategory(data) {
-	const res = await fetch(BASE_URL, {
+	const res = await fetch(CATEGORIES_BASE_URL, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
@@ -15,7 +15,7 @@ export async function createCategory(data) {
 }
 
 export async function updateCategory(catid, data) {
-	const res = await fetch(`${BASE_URL}/${catid}`, {
+	const res = await fetch(`${CATEGORIES_BASE_URL}/${catid}`, {
 		method: "PUT",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
@@ -29,7 +29,7 @@ export async function updateCategory(catid, data) {
 }
 
 export async function deleteCategory(catid) {
-	const res = await fetch(`${BASE_URL}/${catid}`, {
+	const res = await fetch(`${CATEGORIES_BASE_URL}/${catid}`, {
 		method: "DELETE",
 	});
 

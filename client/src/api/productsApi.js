@@ -1,7 +1,7 @@
-const BASE_URL = "http://localhost:5000/api/products";
+import { PRODUCTS_BASE_URL } from "./apiConfig";
 
 export async function createProduct(data) {
-	const res = await fetch(BASE_URL, {
+	const res = await fetch(PRODUCTS_BASE_URL, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
@@ -15,7 +15,7 @@ export async function createProduct(data) {
 }
 
 export async function updateProduct(pid, data) {
-	const res = await fetch(`${BASE_URL}/${pid}`, {
+	const res = await fetch(`${PRODUCTS_BASE_URL}/${pid}`, {
 		method: "PUT",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
@@ -29,7 +29,7 @@ export async function updateProduct(pid, data) {
 }
 
 export async function deleteProduct(pid) {
-	const res = await fetch(`${BASE_URL}/${pid}`, {
+	const res = await fetch(`${PRODUCTS_BASE_URL}/${pid}`, {
 		method: "DELETE",
 	});
 

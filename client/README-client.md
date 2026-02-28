@@ -24,3 +24,5 @@ To stop running production build:
 ``ps aux`` and find the one with node, note its process id (PID)
 
 ``kill -HUP 98064`` where 98064 is the actual PID
+
+You may have to edit apiConfig.js in src > api
