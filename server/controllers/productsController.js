@@ -55,8 +55,6 @@ export async function getById(req, res) {
 				error: "Product not found",
 			});
 		}
-
-		console.log(`GET /api/products/${pid} →`, product);
 		res.json(product);
 	} catch (err) {
 		console.error(err);
