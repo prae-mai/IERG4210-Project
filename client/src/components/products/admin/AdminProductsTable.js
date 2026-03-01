@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { getProducts, createProduct, deleteProduct, updateProduct } from "../../../api/productsApi";
+import { 
+	getProducts,
+	createProduct,
+	deleteProduct,
+	updateProduct,
+	uploadProductImage,
+ } from "../../../api/productsApi";
+import { BASE_API_URL } from "../../../config/apiConfig";
 import { getCategories } from "../../../api/categoriesApi";
 
 function AdminProductsTable({ onEdit }) {
@@ -56,17 +63,41 @@ function AdminProductsTable({ onEdit }) {
 			name: "",
 			price: "",
 			description: "",
+			imageFile: null,
 		});
 	}
 
 	async function saveCreate() {
-		await createProduct({
-			...newProduct,
-			categoryId: Number(newProduct.categoryId),
-			price: Number(newProduct.price),
-		});
-		setNewProduct(null);
-		loadProducts();
+		try {
+			const result = await createProduct({
+				...newProduct,
+				categoryId: Number(newProduct.categoryId),
+				price: Number(newProduct.price),
+			});
+
+			// if image selected, upload after product is created
+			if (newProduct.imageFile) {
+				await uploadProductImage(
+					result.productId,
+					newProduct.imageFile,
+				);
+			}
+			setNewProduct(null);
+			loadProducts();
+		} catch (err) {
+			console.error(err);
+			alert("Create failed");
+		}
+	}
+
+	async function handleImageUpload(pid, file) {
+		try {
+			await uploadProductImage(pid, file);
+			loadProducts();
+		} catch (err) {
+			console.error(err);
+			alert("Image upload failed");
+		}
 	}
 
 	return (
@@ -80,6 +111,7 @@ function AdminProductsTable({ onEdit }) {
 					<tr>
 						<th>ID</th>
 						<th>Category</th>
+						<th>Image</th>
 						<th>Name</th>
 						<th>Price</th>
 						<th>Description</th>
@@ -92,28 +124,61 @@ function AdminProductsTable({ onEdit }) {
 						<tr key={p.id}>
 							<td>{p.id}</td>
 
-						<td>
-							{editingId === p.id ? (
-								<select
-									value={editData.categoryId}
-									onChange={(e) =>
-										setEditData({
-											...editData,
-											categoryId: Number(e.target.value),
-										})
-									}
-								>
-									<option value="">Select category</option>
-									{categories.map((c) => (
-										<option key={c.id} value={c.id}>
-											{c.name}
+							<td>
+								{editingId === p.id ? (
+									<select
+										value={editData.categoryId}
+										onChange={(e) =>
+											setEditData({
+												...editData,
+												categoryId: Number(
+													e.target.value,
+												),
+											})
+										}
+									>
+										<option value="">
+											Select category
 										</option>
-									))}
-								</select>
-							) : (
-								categories.find((c) => c.id === p.categoryId)?.name || ""
-							)}
-						</td>
+										{categories.map((c) => (
+											<option key={c.id} value={c.id}>
+												{c.name}
+											</option>
+										))}
+									</select>
+								) : (
+									categories.find(
+										(c) => c.id === p.categoryId,
+									)?.name || ""
+								)}
+							</td>
+
+							<td>
+								<img
+									src={`${BASE_API_URL}/images/products/${p.id}-thumb.png`}
+									alt={`${p.id}-thumb`}
+									width="40"
+									height="40"
+									onError={(e) => {
+										e.target.onerror = null;
+										e.target.src =
+											"/images/placeholder.png";
+									}}
+								/>
+
+								{editingId === p.id && (
+									<input
+										type="file"
+										accept="image/*"
+										onChange={(e) =>
+											handleImageUpload(
+												p.id,
+												e.target.files[0],
+											)
+										}
+									/>
+								)}
+							</td>
 
 							<td>
 								{editingId === p.id ? (
@@ -180,9 +245,7 @@ function AdminProductsTable({ onEdit }) {
 										<button onClick={() => startEdit(p)}>
 											Edit
 										</button>
-										<button
-											onClick={() => handleDelete(p)}
-										>
+										<button onClick={() => handleDelete(p)}>
 											Delete
 										</button>
 									</>
@@ -195,23 +258,36 @@ function AdminProductsTable({ onEdit }) {
 						<tr>
 							<td>New</td>
 							<td>
-							 	<select
-							 		value={newProduct.categoryId}
-							 		onChange={(e) =>
-							 			setNewProduct({
-							 				...newProduct,
-							 				categoryId: Number(e.target.value),
-							 			})
-							 		}
-							 	>
-							 		<option value="">Select category</option>
-							 		{categories.map((c) => (
-							 			<option key={c.id} value={c.id}>
-							 				{c.name}
-							 			</option>
-							 		))}
-							 	</select>
-							 </td>
+								<select
+									value={newProduct.categoryId}
+									onChange={(e) =>
+										setNewProduct({
+											...newProduct,
+											categoryId: Number(e.target.value),
+										})
+									}
+								>
+									<option value="">Select category</option>
+									{categories.map((c) => (
+										<option key={c.id} value={c.id}>
+											{c.name}
+										</option>
+									))}
+								</select>
+							</td>
+
+							<td>
+								<input
+									type="file"
+									accept="image/*"
+									onChange={(e) =>
+										setNewProduct({
+											...newProduct,
+											imageFile: e.target.files[0],
+										})
+									}
+								/>
+							</td>
 
 							<td>
 								<input
@@ -254,8 +330,6 @@ function AdminProductsTable({ onEdit }) {
 							</td>
 						</tr>
 					)}
-
-					
 				</tbody>
 			</table>
 		</section>

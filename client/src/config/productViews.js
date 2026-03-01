@@ -1,5 +1,8 @@
 export const PRODUCT_FIELDS = Object.freeze({
-	THUMBNAIL: "thumbnail",
+	THUMBNAIL: Object.freeze({
+		THUMB: "thumb",
+		BIG: "big",
+	}),
 	NAME: "name",
 	DESCRIPTION: "description",
 	PRICE: "price",
@@ -10,13 +13,13 @@ export const PRODUCT_FIELDS = Object.freeze({
 
 export const PRODUCT_VIEWS = {
 	grid: [
-		PRODUCT_FIELDS.THUMBNAIL,
+		PRODUCT_FIELDS.THUMBNAIL.THUMB,
 		PRODUCT_FIELDS.NAME,
 		PRODUCT_FIELDS.PRICE,
 		PRODUCT_FIELDS.QUANTITY_IN_CART,
 	],
 	detail: [
-		PRODUCT_FIELDS.THUMBNAIL,
+		PRODUCT_FIELDS.THUMBNAIL.BIG,
 		PRODUCT_FIELDS.NAME,
 		PRODUCT_FIELDS.DESCRIPTION,
 		PRODUCT_FIELDS.TAGS,

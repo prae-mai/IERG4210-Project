@@ -1,15 +1,15 @@
-import { getImageUrl } from "../../../utils/getImageUrl";
+import { BASE_API_URL } from "../../../config/apiConfig";
 
-function ProductThumbnail({ product }) {
+function ProductThumbnail({ product, field }) {
 	return (
 		<figure>
 			<img
-				src={
-					product?.thumbnail
-						? getImageUrl(product.thumbnail)
-						: getImageUrl("placeholder-thumbnail.png")
-				}
+				src={`${BASE_API_URL}/images/products/${product.id}-${field}.png`}
 				alt={product.name}
+				onError={(e) => {
+					e.target.onerror = null;
+					e.target.src = "/images/placeholder.png";
+				}}
 			/>
 		</figure>
 	);

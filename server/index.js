@@ -2,6 +2,7 @@ import { requestLogger } from "./requestLogger.js";
 
 import express from "express";
 import cors from "cors";
+import path from "path";
 import pool from "./db.js";
 import productsRoutes from "./routes/products.js";
 import categoriesRoutes from "./routes/categories.js";
@@ -11,6 +12,8 @@ const app = express();
 app.use(requestLogger);
 app.use(cors());
 app.use(express.json()); // allows JSON body
+app.use("/images/products", express.static(path.join(process.cwd(), "uploads/products")));
+
 app.use("/api/products", productsRoutes);
 app.use("/api/categories", categoriesRoutes);
 

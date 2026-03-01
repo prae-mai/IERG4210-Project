@@ -30,11 +30,17 @@ function ProductItem({ product, view = "grid" }) {
 		return <h2>{ENGLISH.PRODUCT.INVALID_VIEW}</h2>;
 	}
 
+	const thumbnailField = fields.find(
+		(field) =>
+			field === PRODUCT_FIELDS.THUMBNAIL.THUMB ||
+			field === PRODUCT_FIELDS.THUMBNAIL.BIG
+	);
+
 	return (
 		<article className={`product-item--${view}`}>
 			<div className="product-item__media">
-				{fields.includes(PRODUCT_FIELDS.THUMBNAIL) && (
-					<ProductThumbnail product={product} />
+				{thumbnailField && (
+					<ProductThumbnail product={product} field={thumbnailField} />
 				)}
 			</div>
 			<div className="product-item__content">

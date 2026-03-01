@@ -60,3 +60,19 @@ export async function getProductById(pid) {
 
 	return await res.json();
 }
+
+export async function uploadProductImage(pid, file) {
+	const formData = new FormData();
+	formData.append("image", file);
+
+	const res = await fetch(`${PRODUCTS_BASE_URL}/${pid}/image`, {
+		method: "POST",
+		body: formData,
+	});
+
+	if (!res.ok) {
+		throw new Error("Failed to upload product image");
+	}
+
+	return await res.json();
+}
