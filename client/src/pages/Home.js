@@ -12,20 +12,10 @@ function Home() {
 		(product) => product.featured,
 	);
 
-	useEffect(() => {
-		async function fetchData() {
-			const res = await fetch("http://localhost:5000/api/test");
-			const data = await res.json();
-			console.log(data);
-		}
-
-		fetchData();
-	}, []);
-
-
 	return (
-		<section>			
-			<h1>Featured Products</h1>
+		<section>
+			<h1>Plush Products (because i like those the most)</h1>
+			<p>and because i don't have a featured products flag for products in the database (yet)</p>
 			<div className="product-grid">
 					{featuredProducts.map((product) => (
 						<Link

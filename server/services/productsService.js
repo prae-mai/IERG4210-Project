@@ -21,15 +21,48 @@ export async function deleteProduct(pid) {
 }
 
 export async function getAllProducts() {
-	// return await dbQuery(`SELECT * FROM products`);
-	return await dbQuery(`
+	const rows = await dbQuery(`
 		SELECT
-			pid AS id,
-			catid AS categoryId,
-			name,
-			price,
-			description,
-			thumbnail
-		FROM products
+			p.pid AS id,
+			p.catid AS categoryId,
+			c.name AS categoryName,
+			p.name,
+			p.price,
+			p.description
+		FROM products p
+		LEFT JOIN categories c on p.catid = c.catid
 	`);
+
+	return rows.map((row) => ({
+		...row,
+		price: Number(row.price),
+	}));
+}
+
+export async function getProductById(pid) {
+	const rows = await dbQuery(`
+		SELECT
+			p.pid AS id,
+			p.catid AS categoryId,
+			c.name AS categoryName,
+			p.name,
+			p.price,
+			p.description
+		FROM products p
+		LEFT JOIN categories c ON p.catid = c.catid
+		WHERE p.pid = ?
+		`,
+		[pid],
+	);
+
+	if (rows.length === 0) {
+		return null;
+	}
+
+	const product = rows[0];
+
+	return {
+		...product,
+		price: Number(product.price),
+	};
 }

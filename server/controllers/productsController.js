@@ -43,3 +43,23 @@ export async function getAll(req, res) {
 		res.status(500).json({ error: "Fetch failed" });
 	}
 }
+
+export async function getById(req, res) {
+	try {
+		const { pid } = req.params;
+
+		const product = await productService.getProductById(pid);
+
+		if (!product) {
+			return res.status(404).json({
+				error: "Product not found",
+			});
+		}
+
+		console.log(`GET /api/products/${pid} →`, product);
+		res.json(product);
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ error: "Fetch failed" });
+	}
+}

@@ -47,3 +47,16 @@ export async function getProducts() {
 	}
 	return await res.json();
 }
+
+export async function getProductById(pid) {
+	const res = await fetch(`${PRODUCTS_BASE_URL}/${pid}`);
+
+	if (!res.ok) {
+		if (res.status === 404) {
+			return null;
+		}
+		throw new Error("Failed to fetch product");
+	}
+
+	return await res.json();
+}
