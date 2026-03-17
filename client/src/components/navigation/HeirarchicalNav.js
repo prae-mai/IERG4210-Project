@@ -18,7 +18,8 @@ function HierarchicalNav() {
 		.split("?")[0]
 		.split("#")[0]
 		.split("/")
-		.filter(Boolean);
+		.filter(Boolean)
+		.map((segment) => decodeURIComponent(segment));
 
 	if (segments.length === 0) {
 		return null;
