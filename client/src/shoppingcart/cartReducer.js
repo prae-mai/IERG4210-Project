@@ -45,7 +45,7 @@ export function cartReducer(state, action) {
 					{
 						productId: product.id,
 						name: product.name,
-						category: product.category,
+						category: product.categoryName,
 						thumbnail: product.thumbnail,
 						priceSnapshot: product.price,
 						quantity,

@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCartActions } from "./useCartActions";
-
 import { CartContext } from "./CartContext";
 import { selectPreviewItems, selectTotalPrice, selectIsCartEmpty, selectNumberOfHiddenitems } from "./cartSelectors";
+import { slugify } from "../utils/slugify";
 
 import ENGLISH from "../i18n/english";
 
@@ -24,9 +24,10 @@ function CartPreview({ onClose }) {
 		navigate("/shopping-cart");
 	}
 
-	function handleItemClick(productId, category) {
+	function handleItemClick(item) {
 		onClose?.();
-		navigate(`/products/${category}/${productId}`);
+		const slug = slugify(item.name);
+		navigate(`/products/${item.category}/${item.productId}-${slug}`);
 	}
 
 	return (
@@ -43,10 +44,7 @@ function CartPreview({ onClose }) {
 								<button
 									type="button"
 									onClick={() =>
-										handleItemClick(
-											item.productId,
-											item.category,
-										)
+										handleItemClick(item)
 									}
 									className="cart-preview__item"
 								>
