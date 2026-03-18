@@ -1,6 +1,6 @@
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-
-import products from "../../data/products-metadata.json";
+import { getProducts } from "../../api/productsApi";
 
 function titleCase(str) {
 	if (!str) return "";
@@ -12,8 +12,28 @@ function HierarchicalNav() {
 	const className = "hierarchical-nav";
 	const location = useLocation();
 
-	const pathname = location.pathname;
+	const [products, setProducts] = useState([]);
+	const [productsLoaded, setProductsLoaded] = useState(false);
 
+	useEffect(() => {
+		if (productsLoaded) return;
+
+		async function fetchAll() {
+			try {
+				const data = await getProducts();
+				setProducts(data);
+				setProductsLoaded(true);
+			} catch (err) {
+				console.error(err);
+			}
+		}
+
+		fetchAll();
+	}, [productsLoaded]);
+
+	const productList = products;
+
+	const pathname = location.pathname;
 	const segments = pathname
 		.split("?")[0]
 		.split("#")[0]
@@ -25,7 +45,6 @@ function HierarchicalNav() {
 		return null;
 	}
 
-	const productList = Object.values(products);
 	const crumbs = [];
 	let accumulatedPath = "";
 
