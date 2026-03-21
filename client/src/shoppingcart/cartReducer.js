@@ -14,8 +14,27 @@ export function cartReducer(state, action) {
 	}
 
 	switch (action.type) {
+		case CART_ACTIONS.ADD_ITEM: {
+			const { item } = action.payload;
+
+			const existingIndex = state.items.findIndex(
+				(i) => i.productId === item.productId,
+			);
+
+			if (existingIndex !== -1) {
+				const updated = [...state.items];
+				updated[existingIndex].quantity += item.quantity;
+				return { ...state, items: updated };
+			}
+
+			return {
+				...state,
+				items: [...state.items, item],
+			};
+		}
+
 		case CART_ACTIONS.SET_QUANTITY: {
-			const { product, quantity } = action.payload;
+			const { productId, quantity } = action.payload;
 
 			if (
 				typeof quantity !== "number" ||
@@ -26,7 +45,7 @@ export function cartReducer(state, action) {
 			}
 
 			const existingItemIndex = state.items.findIndex(
-				(item) => item.productId === product.id,
+				(item) => item.productId === productId,
 			);
 
 			if (existingItemIndex !== -1) {
@@ -38,21 +57,7 @@ export function cartReducer(state, action) {
 				return { ...state, items: updatedItems };
 			}
 
-			return {
-				...state,
-				items: [
-					...state.items,
-					{
-						productId: product.id,
-						name: product.name,
-						category: product.categoryName,
-						thumbnail: product.thumbnail,
-						priceSnapshot: product.price,
-						quantity,
-						addedAt: new Date().toISOString(),
-					},
-				],
-			};
+			return state;
 		}
 
 		case CART_ACTIONS.REMOVE_ITEM: {

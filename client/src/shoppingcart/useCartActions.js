@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
+import { createCartItem } from "./createCartItem";
 import { CART_ACTIONS, CART_LIMITS } from "../config/shoppingCartConfig";
 
 import ENGLISH from "../i18n/english";
@@ -7,7 +8,15 @@ import ENGLISH from "../i18n/english";
 export function useCartActions() {
 	const { cartState, dispatch } = useContext(CartContext);
 
-	function setQuantity(product, value) {
+	function addItem(product, quantity = 1) {
+		const item = createCartItem(product, quantity);
+		dispatch({
+			type: CART_ACTIONS.ADD_ITEM,
+			payload: { item },
+		});
+	}
+
+	function setQuantity(productId, value) {
 		const quantity = Number(value);
 
 		if (
@@ -21,7 +30,7 @@ export function useCartActions() {
 
 		dispatch({
 			type: CART_ACTIONS.SET_QUANTITY,
-			payload: { product, quantity },
+			payload: { productId, quantity },
 		});
 
 		return true;
@@ -54,6 +63,7 @@ export function useCartActions() {
 
 	return {
 		isLocked: cartState.isCheckoutLocked,
+		addItem,
 		setQuantity,
 		removeItem,
 		clearCart,

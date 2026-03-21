@@ -3,16 +3,16 @@ import { CART_LIMITS } from "../config/shoppingCartConfig";
 
 import ENGLISH from "../i18n/english";
 
-function CartItemRow({ item, isLocked, setQuantity, removeItem }) {
-	const [value, setValue] = useState(item.quantity);
+function CartItemRow({ cartItem, isLocked, setQuantity, removeItem }) {
+	const [value, setValue] = useState(cartItem.quantity);
 
 	useEffect(() => {
-		setValue(item.quantity);
-	}, [item.quantity]);
+		setValue(cartItem.quantity);
+	}, [cartItem.quantity]);
 
 	return (
 		<li className="cart-item-row">
-			<strong className="cart-item-row__name">{item.name}</strong>
+			<strong className="cart-item-row__name">{cartItem.name}</strong>
 			<div className="cart-item-row__controls">
 				<input
 					type="number"
@@ -23,13 +23,13 @@ function CartItemRow({ item, isLocked, setQuantity, removeItem }) {
 					disabled={isLocked}
 				/>
 				<button
-					onClick={() => setQuantity(item, value)}
+					onClick={() => setQuantity(cartItem.productId, value)}
 					disabled={isLocked}
 				>
 					{ENGLISH.CART.ACTIONS.UPDATE}
 				</button>
 				<button
-					onClick={() => removeItem(item.productId)}
+					onClick={() => removeItem(cartItem.productId)}
 					disabled={isLocked}
 				>
 					{ENGLISH.CART.ACTIONS.REMOVE}

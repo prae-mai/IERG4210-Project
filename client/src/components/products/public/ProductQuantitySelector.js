@@ -4,7 +4,7 @@ import { useCart } from "../../../shoppingcart/useCart";
 import ENGLISH from "../../../i18n/english";
 
 function ProductQuantitySelector({ product }) {
-	const { setQuantity, isLocked, getItemQuantity } = useCart();
+	const { addItem, setQuantity, isLocked, getItemQuantity } = useCart();
 	const existingQuantity = getItemQuantity(product.id);
 
 	const [value, setValue] = useState(existingQuantity || 1);
@@ -17,11 +17,11 @@ function ProductQuantitySelector({ product }) {
 	}, [existingQuantity]);
 
 	function handleAdd() {
-		setQuantity(product, value);
-
-		if (value !== existingQuantity) {
-			setJustUpdated(true);
-			setTimeout(() => setJustUpdated(false), 1500);
+		if (existingQuantity > 0) {
+			setQuantity(product.id, value);
+		}
+		else {
+			addItem(product, value);
 		}
 	}
 

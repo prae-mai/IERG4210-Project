@@ -30,7 +30,7 @@ function ShoppingCart() {
 						{items.map((item) => (
 							<CartItemRow
 								key={item.productId}
-								item={item}
+								cartItem={item}
 								isLocked={isLocked}
 								setQuantity={setQuantity}
 								removeItem={removeItem}
