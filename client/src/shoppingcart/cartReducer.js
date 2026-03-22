@@ -1,4 +1,5 @@
 import { CART_ACTIONS, CART_LIMITS } from "../config/shoppingCartConfig";
+import { isValidQuantity } from "./cartValidation";
 import { initialCartState } from "./cartState";
 
 export function cartReducer(state, action) {
@@ -23,7 +24,17 @@ export function cartReducer(state, action) {
 
 			if (existingIndex !== -1) {
 				const updated = [...state.items];
+
+				const newQuantity =
+					Number(updated[existingIndex].quantity) +
+					Number(item.quantity);
+
+				if (!isValidQuantity(newQuantity)) {
+					return state;
+				}
+
 				updated[existingIndex].quantity += item.quantity;
+
 				return { ...state, items: updated };
 			}
 

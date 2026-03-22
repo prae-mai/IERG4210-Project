@@ -29,8 +29,9 @@ function ProductQuantitySelector({ product }) {
 		<div className="product-quantity-selector">
 			<input
 				type="number"
+				min="1"
 				value={value}
-				onChange={(e) => setValue(e.target.value)}
+				onChange={(e) => setValue(Number(e.target.value))}
 				disabled={isLocked}
 			/>
 

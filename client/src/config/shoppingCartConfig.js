@@ -1,4 +1,5 @@
 export const CART_ACTIONS = {
+	IS_VALID_QUANTITY: "cart/isValidQuantity",
 	ADD_ITEM: "cart/addItem",
 	SET_QUANTITY: "cart/setQuantity",
 	REMOVE_ITEM: "cart/removeItem",

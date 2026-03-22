@@ -27,10 +27,10 @@ function ShoppingCart() {
 			) : (
 				<>
 					<ul className="shopping-cart__items">
-						{items.map((item) => (
+						{items.map((cartItem) => (
 							<CartItemRow
-								key={item.productId}
-								cartItem={item}
+								key={cartItem.productId}
+								cartItem={cartItem}
 								isLocked={isLocked}
 								setQuantity={setQuantity}
 								removeItem={removeItem}
