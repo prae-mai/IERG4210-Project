@@ -69,6 +69,16 @@ function AdminProductsTable({ onEdit }) {
 
 	async function saveCreate() {
 		try {
+			if (!newProduct.name.trim()) {
+				alert("Name required");
+				return;
+			}
+
+			if (!Number.isFinite(Number(newProduct.price))) {
+				alert("Invalid price");
+				return;
+			}
+
 			const result = await createProduct({
 				...newProduct,
 				categoryId: Number(newProduct.categoryId),

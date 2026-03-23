@@ -19,7 +19,16 @@ function CartItemRow({ cartItem, isLocked, setQuantity, removeItem }) {
 					value={value}
 					min={CART_LIMITS.MIN_QUANTITY_PER_ITEM}
 					max={CART_LIMITS.MAX_QUANTITY_PER_ITEM}
-					onChange={(e) => setValue(Number(e.target.value))}
+					onChange={(e) => {
+						const val = Number(e.target.value);
+						if (
+							Number.isInteger(val) &&
+							val >= CART_LIMITS.MIN_QUANTITY_PER_ITEM &&
+							val <= CART_LIMITS.MAX_QUANTITY_PER_ITEM
+						) {
+							setValue(val);
+						}
+					}}
 					disabled={isLocked}
 				/>
 				<button

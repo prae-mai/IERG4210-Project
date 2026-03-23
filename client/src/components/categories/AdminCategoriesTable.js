@@ -43,7 +43,12 @@ function AdminCategoriesTable({ onEdit }) {
 	}
 
 	async function saveCreate() {
-		await createCategory({ name: newCategory.name });
+		if (!newCategory.name.trim()) {
+			alert("Name required");
+			return;
+		}
+		
+		await createCategory({ name: newCategory.name.trim() });
 		setNewCategory(null);
 		loadCategories();
 	}
