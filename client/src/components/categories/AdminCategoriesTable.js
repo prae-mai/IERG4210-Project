@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { getCategories, createCategory, deleteCategory, updateCategory } from "../../api/categoriesApi";
+import { normalizeCategoryInput, validateCategoryInput } from "../../utils/validateCategory";
+
+import ENGLISH from "../../i18n/english";
 
 function AdminCategoriesTable({ onEdit }) {
 	const [categories, setCategories] = useState([]);
 	const [editingId, setEditingId] = useState(null);
 	const [newCategory, setNewCategory] = useState(null);
-	const [editName, setEditName] = useState("");
+	const [editData, setEditData] = useState("");
 
 	useEffect(() => {
 		loadCategories();
@@ -29,13 +32,25 @@ function AdminCategoriesTable({ onEdit }) {
 
 	function startEdit(category) {
 		setEditingId(category.id);
-		setEditName(category.name);
+		setEditData({ ...category });
 	}
 
 	async function saveEdit(id) {
-		await updateCategory(id, { name: editName });
-		setEditingId(null);
-		loadCategories();
+		try {
+			const normalized = normalizeCategoryInput(editData);
+			const errors = validateCategoryInput(normalized);
+
+			if (Object.keys(errors).length > 0) {
+				alert(Object.values(errors).join("\n"));
+				return;
+			}
+
+			await updateCategory(id, normalized);
+			setEditingId(null);
+			loadCategories();
+		} catch (err) {
+			console.error(err);
+		}
 	}
 
 	function startCreate() {
@@ -43,27 +58,34 @@ function AdminCategoriesTable({ onEdit }) {
 	}
 
 	async function saveCreate() {
-		if (!newCategory.name.trim()) {
-			alert("Name required");
-			return;
+		try {
+			const normalized = normalizeCategoryInput(newCategory);
+			const errors = validateCategoryInput(normalized);
+
+			if (Object.keys(errors).length > 0) {
+				alert(Object.values(errors).join("\n"));
+				return;
+			}
+
+			await createCategory(normalized);
+			setNewCategory(null);
+			loadCategories();
+		} catch (err) {
+			console.error(err);
 		}
-		
-		await createCategory({ name: newCategory.name.trim() });
-		setNewCategory(null);
-		loadCategories();
 	}
 
 	return (
 		<section>
 			<h2>Categories</h2>
 
-			<button onClick={startCreate}>Add New Category</button>
+			<button onClick={startCreate}>{ENGLISH.CATEGORY.ADD_NEW}</button>
 
 			<table border="1" cellPadding="5">
 				<thead>
 					<tr>
-						<th>Name</th>
-						<th>Actions</th>
+						<th>{ENGLISH.GENERAL.NAME}</th>
+						<th>{ENGLISH.GENERAL.ACTIONS}</th>
 					</tr>
 				</thead>
 
@@ -73,9 +95,12 @@ function AdminCategoriesTable({ onEdit }) {
 							<td>
 								{editingId === c.id ? (
 									<input
-										value={editName}
+										value={editData.name}
 										onChange={(e) =>
-											setEditName(e.target.value)
+											setEditData({
+												...editData,
+												name: e.target.value,
+											})
 										}
 									/>
 								) : (
@@ -86,28 +111,22 @@ function AdminCategoriesTable({ onEdit }) {
 							<td>
 								{editingId === c.id ? (
 									<>
-										<button
-											onClick={() => saveEdit(c.id)}
-										>
-											Save
+										<button onClick={() => saveEdit(c.id)}>
+											{ENGLISH.GENERAL.SAVE}
 										</button>
 										<button
 											onClick={() => setEditingId(null)}
 										>
-											Cancel
+											{ENGLISH.GENERAL.CANCEL}
 										</button>
 									</>
 								) : (
 									<>
 										<button onClick={() => startEdit(c)}>
-											Edit
+											{ENGLISH.GENERAL.EDIT}
 										</button>
-										<button
-											onClick={() =>
-												handleDelete(c)
-											}
-										>
-											Delete
+										<button onClick={() => handleDelete(c)}>
+											{ENGLISH.GENERAL.DELETE}
 										</button>
 									</>
 								)}
@@ -126,9 +145,11 @@ function AdminCategoriesTable({ onEdit }) {
 								/>
 							</td>
 							<td>
-								<button onClick={saveCreate}>Save</button>
+								<button onClick={saveCreate}>
+									{ENGLISH.GENERAL.SAVE}
+								</button>
 								<button onClick={() => setNewCategory(null)}>
-									Cancel
+									{ENGLISH.GENERAL.CANCEL}
 								</button>
 							</td>
 						</tr>

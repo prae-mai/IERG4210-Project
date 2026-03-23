@@ -55,9 +55,21 @@ function AdminProductsTable({ onEdit }) {
 	}
 
 	async function saveEdit(id) {
-		await updateProduct(id, editData);
-		setEditingId(null);
-		loadProducts();
+		try {
+			const normalized = normalizeProductInput(editData);
+			const errors = validateProductInput(normalized);
+
+			if (Object.keys(errors).length > 0) {
+				alert(Object.values(errors).join("\n"));
+				return;
+			}
+
+			await updateProduct(id, normalized);
+			setEditingId(null);
+			loadProducts();
+		} catch (err) {
+			console.error(err);
+		}
 	}
 
 	function startCreate() {

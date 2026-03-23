@@ -36,16 +36,18 @@ const ENGLISH = {
 	},
 
 	PRODUCT: {
+		ADD_NEW: "Add new product.",
 		NOT_FOUND: "Product not found.",
 		INVALID_VIEW: "Invalid product view.",
 		PRICE_MUST_BE_POSITIVE: "Price must be a positive number.",
 		FAILED_CREATE: "Failed to create product.",
 		FAILED_IMAGE_UPLOAD: "Failed to upload image.",
-		ADD_NEW: "Add new product.",
 	},
 
 	CATEGORY: {
+		ADD_NEW: "Add new category.",
 		SELECT: "Select category.",
+		NAME_TOO_LONG: "Category name is too long.",
 	},
 
 	CART: {
