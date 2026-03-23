@@ -42,7 +42,11 @@ export function validateProductInput(data) {
 		throw new Error("Name too long");
 	}
 
-	if (!Number.isFinite(price) || price < 0) {
+	if (!description) {
+		throw new Error("Description required");
+	}
+
+	if (!Number.isFinite(price) || price <= 0) {
 		throw new Error("Invalid price");
 	}
 

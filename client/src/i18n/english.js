@@ -12,14 +12,40 @@ const ENGLISH = {
 		YES: "Yes",
 		NO: "No",
 		CANCEL: "Cancel",
+		EDIT: "Edit",
+		SAVE: "Save",
 		SUBMIT: "Submit",
+		DELETE: "Delete",
 		QUANTITY: "Quantity",
 		TOTAL: "Total",
+		ID: "ID",
+		CATEGORY: "Category",
+		IMAGE: "Image",
+		NAME: "Name",
+		PRICE: "Price",
+		DESCRIPTION: "Description",
+		ACTIONS: "Actions",
+		NEW: "New",
+	},
+
+	REQUIRED: {
+		NAME: "Name is required.",
+		CATEGORY: "Category is required.",
+		DESCRIPTION: "Description is required.",
+		IMAGE: "Image is required.",
 	},
 
 	PRODUCT: {
 		NOT_FOUND: "Product not found.",
 		INVALID_VIEW: "Invalid product view.",
+		PRICE_MUST_BE_POSITIVE: "Price must be a positive number.",
+		FAILED_CREATE: "Failed to create product.",
+		FAILED_IMAGE_UPLOAD: "Failed to upload image.",
+		ADD_NEW: "Add new product.",
+	},
+
+	CATEGORY: {
+		SELECT: "Select category.",
 	},
 
 	CART: {
@@ -39,7 +65,7 @@ const ENGLISH = {
 			CLEAR: "Clear cart",
 			UPDATE: "Update",
 			REMOVE: "Remove",
-			CANCEL_CHECKOUT: "Cancel checkout"
+			CANCEL_CHECKOUT: "Cancel checkout",
 		},
 		STATUS: {
 			UNLOCKED: "Your cart is unlocked and can be modified.",
