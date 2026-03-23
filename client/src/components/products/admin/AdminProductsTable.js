@@ -8,6 +8,9 @@ import {
  } from "../../../api/productsApi";
 import { BASE_API_URL } from "../../../config/apiConfig";
 import { getCategories } from "../../../api/categoriesApi";
+import { normalizeProductInput, validateProductInput } from "../../../utils/validateProduct";
+
+import ENGLISH from "../../../i18n/english";
 
 function AdminProductsTable({ onEdit }) {
 	const [products, setProducts] = useState([]);
@@ -52,9 +55,21 @@ function AdminProductsTable({ onEdit }) {
 	}
 
 	async function saveEdit(id) {
-		await updateProduct(id, editData);
-		setEditingId(null);
-		loadProducts();
+		try {
+			const normalized = normalizeProductInput(editData);
+			const errors = validateProductInput(normalized);
+
+			if (Object.keys(errors).length > 0) {
+				alert(Object.values(errors).join("\n"));
+				return;
+			}
+
+			await updateProduct(id, normalized);
+			setEditingId(null);
+			loadProducts();
+		} catch (err) {
+			console.error(err);
+		}
 	}
 
 	function startCreate() {
@@ -69,10 +84,19 @@ function AdminProductsTable({ onEdit }) {
 
 	async function saveCreate() {
 		try {
+			const normalized = normalizeProductInput(newProduct);
+			const errors = validateProductInput(normalized);
+
+			if (Object.keys(errors).length > 0) {
+				alert(Object.values(errors).join("\n"));
+				return;
+			}
+
 			const result = await createProduct({
-				...newProduct,
-				categoryId: Number(newProduct.categoryId),
-				price: Number(newProduct.price),
+				name: normalized.name,
+				description: normalized.description,
+				price: normalized.price,
+				categoryId: normalized.categoryId,
 			});
 
 			// if image selected, upload after product is created
@@ -86,7 +110,7 @@ function AdminProductsTable({ onEdit }) {
 			loadProducts();
 		} catch (err) {
 			console.error(err);
-			alert("Create failed");
+			alert(ENGLISH.PRODUCT.FAILED_CREATE);
 		}
 	}
 
@@ -96,7 +120,7 @@ function AdminProductsTable({ onEdit }) {
 			loadProducts();
 		} catch (err) {
 			console.error(err);
-			alert("Image upload failed");
+			alert(ENGLISH.PRODUCT.FAILED_IMAGE_UPLOAD);
 		}
 	}
 
@@ -104,18 +128,18 @@ function AdminProductsTable({ onEdit }) {
 		<section>
 			<h2>Products</h2>
 
-			<button onClick={startCreate}>Add New Product</button>
+			<button onClick={startCreate}>{ENGLISH.PRODUCT.ADD_NEW}</button>
 
 			<table border="1" cellPadding="5">
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>Category</th>
-						<th>Image</th>
-						<th>Name</th>
-						<th>Price</th>
-						<th>Description</th>
-						<th>Actions</th>
+						<th>{ENGLISH.GENERAL.ID}</th>
+						<th>{ENGLISH.GENERAL.CATEGORY}</th>
+						<th>{ENGLISH.GENERAL.IMAGE}</th>
+						<th>{ENGLISH.GENERAL.NAME}</th>
+						<th>{ENGLISH.GENERAL.PRICE}</th>
+						<th>{ENGLISH.GENERAL.DESCRIPTION}</th>
+						<th>{ENGLISH.GENERAL.ACTIONS}</th>
 					</tr>
 				</thead>
 
@@ -131,14 +155,12 @@ function AdminProductsTable({ onEdit }) {
 										onChange={(e) =>
 											setEditData({
 												...editData,
-												categoryId: Number(
-													e.target.value,
-												),
+												categoryId: e.target.value,
 											})
 										}
 									>
 										<option value="">
-											Select category
+											{ENGLISH.CATEGORY.SELECT}
 										</option>
 										{categories.map((c) => (
 											<option key={c.id} value={c.id}>
@@ -232,21 +254,21 @@ function AdminProductsTable({ onEdit }) {
 								{editingId === p.id ? (
 									<>
 										<button onClick={() => saveEdit(p.id)}>
-											Save
+											{ENGLISH.GENERAL.SAVE}
 										</button>
 										<button
 											onClick={() => setEditingId(null)}
 										>
-											Cancel
+											{ENGLISH.GENERAL.CANCEL}
 										</button>
 									</>
 								) : (
 									<>
 										<button onClick={() => startEdit(p)}>
-											Edit
+											{ENGLISH.GENERAL.EDIT}
 										</button>
 										<button onClick={() => handleDelete(p)}>
-											Delete
+											{ENGLISH.GENERAL.DELETE}
 										</button>
 									</>
 								)}
@@ -256,7 +278,7 @@ function AdminProductsTable({ onEdit }) {
 
 					{newProduct && (
 						<tr>
-							<td>New</td>
+							<td>{ENGLISH.GENERAL.NEW}</td>
 							<td>
 								<select
 									value={newProduct.categoryId}
@@ -267,7 +289,7 @@ function AdminProductsTable({ onEdit }) {
 										})
 									}
 								>
-									<option value="">Select category</option>
+									<option value="">{ENGLISH.CATEGORY.SELECT}</option>
 									{categories.map((c) => (
 										<option key={c.id} value={c.id}>
 											{c.name}
@@ -325,7 +347,7 @@ function AdminProductsTable({ onEdit }) {
 							<td>
 								<button onClick={saveCreate}>Save</button>
 								<button onClick={() => setNewProduct(null)}>
-									Cancel
+									{ENGLISH.GENERAL.CANCEL}
 								</button>
 							</td>
 						</tr>
