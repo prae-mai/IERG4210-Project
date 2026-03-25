@@ -1,15 +1,12 @@
+import { validateCategoryName, validateId } from "../utils/validators.js";
+
 import * as categoryService from "../services/categoriesService.js";
 
 export async function create(req, res) {
 	try {
-		const { name } = req.body;
-
-		if (!name) {
-			return res.status(400).json({ error: "Name is required" });
-		}
-
-		const catid = await categoryService.createCategory(name);
-
+		const categoryName = validateCategoryName(req.body.name);
+		const catid = await categoryService.createCategory(categoryName);
+		
 		res.status(201).json({
 			message: "Category created",
 			catid,
@@ -22,13 +19,9 @@ export async function create(req, res) {
 
 export async function update(req, res) {
 	try {
-		const { catid } = req.params;
-		const { name } = req.body;
-
-		if (!name) {
-			return res.status(400).json({ error: "Name is required" });
-		}
-
+		const catid = validateId(req.params.catid, "category id");
+		const name = validateCategoryName(req.body.name);
+		
 		await categoryService.updateCategory(catid, name);
 
 		res.json({ message: "Category updated" });
@@ -40,8 +33,7 @@ export async function update(req, res) {
 
 export async function remove(req, res) {
 	try {
-		const { catid } = req.params;
-
+		const catid = validateId(req.params.catid, "category id");
 		await categoryService.deleteCategory(catid);
 
 		res.json({ message: "Category deleted" });

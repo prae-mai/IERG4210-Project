@@ -31,7 +31,12 @@ function ProductQuantitySelector({ product }) {
 				type="number"
 				min="1"
 				value={value}
-				onChange={(e) => setValue(Number(e.target.value))}
+				onChange={(e) => {
+					const val = Number(e.target.value);
+					if (Number.isInteger(val) && val >= 1) {
+						setValue(val);
+					}
+				}}
 				disabled={isLocked}
 			/>
 

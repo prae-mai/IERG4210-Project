@@ -1,3 +1,5 @@
+import { validateProductInput, validateId } from "../utils/validators.js";
+
 import multer from "multer";
 import sharp from "sharp";
 import path from "path";
@@ -22,8 +24,9 @@ const upload = multer({
 export const uploadMiddleware = upload.single("image");
 
 export async function create(req, res) {
-	try {
-		const productId = await productService.createProduct(req.body);
+	try {		
+		const validatedProduct = validateProductInput(req.body);
+		const productId = await productService.createProduct(validatedProduct);
 
 		res.status(201).json({
 			message: "Product created",
@@ -31,27 +34,32 @@ export async function create(req, res) {
 		});
 	} catch (err) {
 		console.error(err);
-		res.status(500).json({ error: "Insert failed" });
+		res.status(400).json({ error: err.message });
 	}
 }
 
 export async function update(req, res) {
 	try {
-		await productService.updateProduct(req.params.pid, req.body);
+		const pid = validateId(req.params.pid, "product id");
+		const validatedProduct = validateProductInput(req.body);
+		
+		await productService.updateProduct(pid, validatedProduct);
+
 		res.json({ message: "Product updated" });
 	} catch (err) {
 		console.error(err);
-		res.status(500).json({ error: "Update failed" });
+		res.status(400).json({ error: err.message });
 	}
 }
 
 export async function remove(req, res) {
 	try {
-		await productService.deleteProduct(req.params.pid);
+		const pid = validateId(req.params.pid, "product id");
+		await productService.deleteProduct(pid);
 		res.json({ message: "Product deleted" });
 	} catch (err) {
 		console.error(err);
-		res.status(500).json({ error: "Delete failed" });
+		res.status(400).json({ error: err.message });
 	}
 }
 
@@ -66,9 +74,8 @@ export async function getAll(req, res) {
 }
 
 export async function getById(req, res) {
-	try {
-		const { pid } = req.params;
-
+	try {		
+		const pid = validateId(req.params.pid, "product id");
 		const product = await productService.getProductById(pid);
 
 		if (!product) {
