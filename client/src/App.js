@@ -10,6 +10,7 @@ import CartPreviewOverlay from "./shoppingcart/CartPreviewOverlay";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Products from "./pages/Products";
+import Admin from "./pages/Admin";
 import AdminProducts from "./pages/AdminProducts";
 import AdminCategories from "./pages/AdminCategories";
 import ShoppingCart from "./pages/ShoppingCart";
@@ -36,6 +37,7 @@ function App() {
 					/>
 					<Route path="/about" element={<About />} />
 					<Route path="/shopping-cart" element={<ShoppingCart />} />
+					<Route path="/admin" element={<Admin />} />
 					<Route path="/admin/products" element={<AdminProducts />} />
 					<Route path="/admin/categories" element={<AdminCategories />} />
 				</Routes>
