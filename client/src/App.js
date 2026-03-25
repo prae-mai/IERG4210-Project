@@ -14,6 +14,9 @@ import Admin from "./pages/Admin";
 import AdminProducts from "./pages/AdminProducts";
 import AdminCategories from "./pages/AdminCategories";
 import ShoppingCart from "./pages/ShoppingCart";
+import Registration from "./pages/Registration";
+import Login from "./pages/Login";
+import PasswordReset from "./pages/PasswordReset";
 
 function App() {
 	const [isCartPreviewOpen, setCartPreviewOpen] = useState(false);
@@ -40,6 +43,9 @@ function App() {
 					<Route path="/admin" element={<Admin />} />
 					<Route path="/admin/products" element={<AdminProducts />} />
 					<Route path="/admin/categories" element={<AdminCategories />} />
+					<Route path="/registration" element={<Registration />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/password-reset" element={<PasswordReset />} />
 				</Routes>
 
 				<CartPreviewOverlay

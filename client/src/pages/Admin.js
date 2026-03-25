@@ -15,8 +15,7 @@ function Admin() {
 							{item.label}
 						</NavLink>
 					</li>
-				))}
-
+			))}
 		</div>
 	);
 }
