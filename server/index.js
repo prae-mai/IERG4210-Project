@@ -4,27 +4,31 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import pool from "./db.js";
+import cookieParser from "cookie-parser";
 import productsRoutes from "./routes/products.js";
 import categoriesRoutes from "./routes/categories.js";
+import authRoutes from "./routes/auth.js"
 
 const app = express();
 
 app.use(requestLogger);
-app.use(cors());
+app.use(
+	cors({
+		origin: true,
+		credentials: true,
+	}),
+);
 app.use(express.json()); // allows JSON body
+app.use(cookieParser());
 app.use("/images/products", express.static(path.join(process.cwd(), "uploads/products")));
 
 app.use("/api/products", productsRoutes);
 app.use("/api/categories", categoriesRoutes);
-
-app.get("/api/test", (req, res) => {
-	res.json({ message: "test worked" });
-});
+app.use("/api/auth", authRoutes);
 
 const PORT = 5000;
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
-	console.log(`audino is cool`);
 });
 
 app.get("/api/db-test", async (req, res) => {

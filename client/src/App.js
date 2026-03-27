@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./utils/useAuth";
 import { CartProvider } from "./shoppingcart/CartContext";
 
 import Navbar from "./components/navigation/Navbar";
@@ -21,6 +22,25 @@ import PasswordReset from "./pages/PasswordReset";
 function App() {
 	const [isCartPreviewOpen, setCartPreviewOpen] = useState(false);
 
+	function RequireAuth({ children }) {
+		const { user, loading } = useAuth();
+
+		if (loading) return <p>Loading...</p>;
+		if (!user) return <Navigate to="/login" />;
+
+		return children;
+	}
+
+	function RequireAdmin({ children }) {
+		const { user, loading } = useAuth();
+
+		if (loading) return <p>Loading...</p>;
+		if (!user || !user.isAdmin) return <Navigate to="/" />;
+
+		return children;
+	}
+
+
 	return (
 		<CartProvider>
 			<BrowserRouter>
@@ -40,9 +60,30 @@ function App() {
 					/>
 					<Route path="/about" element={<About />} />
 					<Route path="/shopping-cart" element={<ShoppingCart />} />
-					<Route path="/admin" element={<Admin />} />
-					<Route path="/admin/products" element={<AdminProducts />} />
-					<Route path="/admin/categories" element={<AdminCategories />} />
+					<Route
+						path="/admin"
+						element={
+							<RequireAdmin>
+								<Admin />
+							</RequireAdmin>
+						}
+					/>
+					<Route
+						path="/admin/products"
+						element={
+							<RequireAdmin>
+								<AdminProducts />
+							</RequireAdmin>
+						}
+					/>
+					<Route
+						path="/admin/categories"
+						element={
+							<RequireAdmin>
+								<AdminCategories />
+							</RequireAdmin>
+						}
+					/>
 					<Route path="/registration" element={<Registration />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/password-reset" element={<PasswordReset />} />

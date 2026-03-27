@@ -61,3 +61,29 @@ export function validateProductInput(data) {
 		categoryId,
 	};
 }
+
+export function validateUsername(username) {
+	const clean = sanitizeString(username);
+
+	if (!clean) {
+		throw new Error("Username is required");
+	}
+
+	if (clean.length < 3 || clean.length > 20) {
+		throw new Error("Username must be between 3 and 20 characters");
+	}
+
+	return clean;
+}
+
+export function validatePassword(password) {
+	if (typeof password !== "string") {
+		throw new Error("Password is required");
+	}
+
+	if (password.length < 8 || password.length > 100) {
+		throw new Error("Password must be between 8 and 100 characters");
+	}
+
+	return password;
+}

@@ -7,6 +7,12 @@ import fs from "fs";
 
 import * as productService from "../services/productsService.js";
 
+function assertAdmin(req) {
+	if (!req.user || !req.user.isAdmin) {
+		throw new Error("Unauthorized");
+	}
+}
+
 const upload = multer({
 	storage: multer.memoryStorage(),
 	limits: {
@@ -24,7 +30,8 @@ const upload = multer({
 export const uploadMiddleware = upload.single("image");
 
 export async function create(req, res) {
-	try {		
+	try {
+		assertAdmin(req);
 		const validatedProduct = validateProductInput(req.body);
 		const productId = await productService.createProduct(validatedProduct);
 
@@ -40,6 +47,7 @@ export async function create(req, res) {
 
 export async function update(req, res) {
 	try {
+		assertAdmin(req);
 		const pid = validateId(req.params.pid, "product id");
 		const validatedProduct = validateProductInput(req.body);
 		
@@ -54,6 +62,7 @@ export async function update(req, res) {
 
 export async function remove(req, res) {
 	try {
+		assertAdmin(req);
 		const pid = validateId(req.params.pid, "product id");
 		await productService.deleteProduct(pid);
 		res.json({ message: "Product deleted" });
@@ -92,6 +101,7 @@ export async function getById(req, res) {
 
 export async function uploadImage(req, res) {
 	try {
+		assertAdmin(req);
 		const { pid } = req.params;
 
 		if (!req.file) {

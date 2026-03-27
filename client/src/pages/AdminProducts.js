@@ -1,9 +1,20 @@
 import { useState } from "react";
+import { useAuth } from "../utils/useAuth";
 
 import AdminProductsTable from "../components/products/admin/AdminProductsTable";
 
 function AdminProducts() {
 	const [editingProduct, setEditingProduct] = useState(null);
+
+	const { user } = useAuth();
+
+	if (!user?.isAdmin) {
+		return (
+			<div>
+				<p>Access denied</p>
+			</div>
+		);
+	}
 
 	return (
 		<section>
