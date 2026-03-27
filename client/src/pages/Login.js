@@ -25,7 +25,6 @@ function Login() {
 
 	return (
 		<div>
-			<p>Login page, under construction</p>
 			<h1>Login</h1>
 
 			<form onSubmit={handleSubmit}>

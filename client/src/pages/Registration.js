@@ -30,7 +30,6 @@ function Registration() {
 
 	return (
 		<div>
-			<p>Registration page, under construction</p>
 			<h1>Registration</h1>
 
 			<form onSubmit={handleSubmit}>
