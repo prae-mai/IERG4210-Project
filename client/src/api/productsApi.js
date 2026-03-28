@@ -3,6 +3,7 @@ import { PRODUCTS_BASE_URL } from "../config/apiConfig";
 export async function createProduct(data) {
 	const res = await fetch(PRODUCTS_BASE_URL, {
 		method: "POST",
+		credentials: "include",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
 	});
@@ -17,6 +18,7 @@ export async function createProduct(data) {
 export async function updateProduct(pid, data) {
 	const res = await fetch(`${PRODUCTS_BASE_URL}/${pid}`, {
 		method: "PUT",
+		credentials: "include",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
 	});
@@ -31,6 +33,7 @@ export async function updateProduct(pid, data) {
 export async function deleteProduct(pid) {
 	const res = await fetch(`${PRODUCTS_BASE_URL}/${pid}`, {
 		method: "DELETE",
+		credentials: "include",
 	});
 
 	if (!res.ok) {
@@ -67,6 +70,7 @@ export async function uploadProductImage(pid, file) {
 
 	const res = await fetch(`${PRODUCTS_BASE_URL}/${pid}/image`, {
 		method: "POST",
+		credentials: "include",
 		body: formData,
 	});
 
