@@ -10,7 +10,7 @@ export function normalizeProductInput(raw) {
 	};
 }
 
-export function validateProductInput(product) {
+export function validateProductInput(product, { isEdit = false }) {
 	const errors = {};
 
 	if (!product.name) {
@@ -33,7 +33,7 @@ export function validateProductInput(product) {
 		errors.description = ENGLISH.REQUIRED.DESCRIPTION;
 	}
 
-	if (!product.imageFile) {
+	if (!isEdit && !product.imageFile) {
 		errors.imageFile = ENGLISH.REQUIRED.IMAGE;
 	}
 

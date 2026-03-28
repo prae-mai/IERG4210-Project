@@ -57,7 +57,7 @@ function AdminProductsTable({ onEdit }) {
 	async function saveEdit(id) {
 		try {
 			const normalized = normalizeProductInput(editData);
-			const errors = validateProductInput(normalized);
+			const errors = validateProductInput(normalized, { isEdit: true });
 
 			if (Object.keys(errors).length > 0) {
 				alert(Object.values(errors).join("\n"));
@@ -85,7 +85,7 @@ function AdminProductsTable({ onEdit }) {
 	async function saveCreate() {
 		try {
 			const normalized = normalizeProductInput(newProduct);
-			const errors = validateProductInput(normalized);
+			const errors = validateProductInput(normalized, { isEdit: false });
 
 			if (Object.keys(errors).length > 0) {
 				alert(Object.values(errors).join("\n"));
