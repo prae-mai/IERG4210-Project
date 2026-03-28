@@ -400,7 +400,8 @@ ul {
 	flex-wrap: wrap;
 }
 
-.shopping-cart__actions button {
+.shopping-cart__actions button,
+.user-menu button {
 	color: #111122;
 	background: #ddddee;
 	border: none;
@@ -411,7 +412,8 @@ ul {
 	cursor: pointer;
 }
 
-.shopping-cart__actions button:hover {
+.shopping-cart__actions button:hover,
+.user-menu button:hover {
 	background: #ae8aff;
 }
 

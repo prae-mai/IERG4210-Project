@@ -18,8 +18,24 @@ function Login() {
 
 		try {
 			await login(username, password);
+
+			// successful login, clear username and password fields
+			setUsername("");
+			setPassword("");
 		} catch (err) {
 			setError(err.message);
+
+			setPassword("");
+
+			if (err.code === "USER_NOT_FOUND") {
+				setError("Username doesn't exist");
+			}
+			else if (err.code === "INVALID_PASSWORD") {
+				setError("Incorrect password");
+			}
+			else {
+				setError("Login failed");
+			}
 		}
 	}
 

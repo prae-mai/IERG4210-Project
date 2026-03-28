@@ -42,7 +42,10 @@ export async function login(req, res) {
 			user,
 		});
 	} catch (err) {
-		res.status(401).json({ error: err.message });
+		res.status(401).json({
+			error: err.code || "LOGIN_FAILED",
+			message: err.message,
+		})
 	}
 }
 

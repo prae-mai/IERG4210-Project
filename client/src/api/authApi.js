@@ -17,7 +17,9 @@ async function request(path, options = {}) {
 	}
 
 	if (!res.ok) {
-		throw new Error(data.error || "Request failed");
+		const err = new Error(data.message || "Request failed");
+		err.code = data.error;
+		throw err;
 	}
 
 	return data;

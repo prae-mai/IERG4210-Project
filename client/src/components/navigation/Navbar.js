@@ -2,6 +2,8 @@ import { NavLink } from "react-router-dom";
 import { navItems } from "../../data/navItems";
 import { useAuth } from "../../utils/useAuth";
 
+import UserMenu from "./UserMenu";
+
 function Navbar() {
 	const { user, logout } = useAuth();
 
@@ -16,17 +18,23 @@ function Navbar() {
 					</li>
 				))}
 
+				{!user && (
+					<li>
+						<NavLink to="/login">Login</NavLink>
+					</li>
+				)}
+
 				{user?.isAdmin && (
 					<li>
 						<NavLink to="/admin">Admin</NavLink>
 					</li>
 				)}
 
-				{user ? (
+				{user && (
 					<li>
-						<button onClick={logout}>Logout</button>
+						<UserMenu user={user} onLogout={logout}></UserMenu>
 					</li>
-				) : null}
+				)}
 			</ul>
 		</nav>
 	);

@@ -29,15 +29,18 @@ export async function loginUser(username, password) {
 	);
 
 	if (users.length === 0) {
-		throw new Error("Invalid username or password");
+		const err = new Error("User not found");
+		err.code = "USER_NOT_FOUND";
+		throw err;
 	}
 
 	const user = users[0];
-
 	const match = await bcrypt.compare(password, user.password);
 
 	if (!match) {
-		throw new Error("Invalid username or password");
+		const err = new Error("Invalid password");
+		err.code = "INVALID_PASSWORD";
+		throw err;
 	}
 
 	// rotate session ID (prevents session fixation)
@@ -52,6 +55,7 @@ export async function loginUser(username, password) {
 		sessionId,
 		user: {
 			id: user.id,
+			username,
 			isAdmin: !!user.isadmin,
 		},
 	};
