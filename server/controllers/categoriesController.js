@@ -39,6 +39,13 @@ export async function remove(req, res) {
 		res.json({ message: "Category deleted" });
 	} catch (err) {
 		console.error(err);
+		if (err.code === "CATEGORY_HAS_PRODUCTS") {
+			return res.status(400).json({
+				error: err.code,
+				message: "Cannot delete category with existing products",
+			});
+		}
+
 		res.status(500).json({ error: "Delete failed" });
 	}
 }

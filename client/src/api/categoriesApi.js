@@ -37,7 +37,10 @@ export async function deleteCategory(catid) {
 	});
 
 	if (!res.ok) {
-		throw new Error("Failed to delete category");
+		const data = await res.json().catch(() => ({}));
+		const err = new Error(data.message || "Failed to delete category");
+		err.code = data.error;
+		throw err;
 	}
 
 	return await res.json();

@@ -26,8 +26,16 @@ function AdminCategoriesTable({ onEdit }) {
 	async function handleDelete(category) {
 		if (!window.confirm(`Delete ${category.name} category?`)) return;
 
-		await deleteCategory(category.id);
-		loadCategories();
+		try {
+			await deleteCategory(category.id);
+			loadCategories();
+		} catch (err) {
+			if (err.code === "CATEGORY_HAS_PRODUCTS") {
+				alert("Cannot delete category: products still exist.");
+			} else {
+				alert("Failed to delete category");
+			}
+		}
 	}
 
 	function startEdit(category) {
