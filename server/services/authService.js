@@ -4,7 +4,7 @@ import { dbQuery } from "../utils/dbQuery.js";
 
 const SALT_ROUNDS = 10;
 
-export async function registerUser(username, password) {
+export async function registerUser(username, email, password) {
 	// check if user exists
 	const existing = await dbQuery("SELECT id FROM users WHERE username = ?", [
 		username,
@@ -14,11 +14,16 @@ export async function registerUser(username, password) {
 		throw new Error("Username already exists");
 	}
 
+	const existingEmail = await dbQuery("SELECT id FROM users WHERE email = ?", [email]);
+	if (existingEmail.length > 0) {
+		throw new Error("Email already exists");
+	}
+
 	const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
 	await dbQuery(
-		`INSERT INTO users (username, password, isadmin) VALUES (?, ?, FALSE)`,
-		[username, hashedPassword],
+		`INSERT INTO users (username, email, password, isadmin) VALUES (?, ?, ?, FALSE)`,
+		[username, email, hashedPassword],
 	);
 }
 

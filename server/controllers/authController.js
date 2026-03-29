@@ -5,7 +5,11 @@ import {
 	changePassword,
 	getUserBySession,
 } from "../services/authService.js";
-import { validateUsername, validatePassword } from "../utils/validators.js";
+import {
+	validateUsername,
+	validatePassword,
+	validateEmail
+} from "../utils/validators.js";
 
 const COOKIE_NAME = "auth_token";
 
@@ -19,9 +23,10 @@ const COOKIE_OPTIONS = {
 export async function register(req, res) {
 	try {
 		const username = validateUsername(req.body.username);
+		const email = validateEmail(req.body.email);
 		const password = validatePassword(req.body.password);
 
-		await registerUser(username, password);
+		await registerUser(username, email, password);
 
 		res.status(201).json({ message: "User registered" });
 	} catch (err) {

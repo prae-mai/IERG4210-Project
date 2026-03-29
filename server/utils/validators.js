@@ -92,3 +92,23 @@ export function validatePassword(password) {
 
 	return password;
 }
+
+export function validateEmail(email) {
+	const clean = sanitizeString(email);
+
+	if (!clean) {
+		throw new Error("Email is required");
+	}
+
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+	if (!emailRegex.test(clean)) {
+		throw new Error("Invalid email format");
+	}
+
+	if (clean.length > 255) {
+		throw new Error("Email too long");
+	}
+
+	return clean;
+}

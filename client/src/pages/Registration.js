@@ -1,11 +1,14 @@
 import { useDocumentTitle } from "../utils/useDocumentTitle";
 import { useState } from "react";
+import { normalizeUserInput, validateUserInput } from "../utils/validateUser";
+
 import * as authApi from "../api/authApi";
 
 function Registration() {
 	useDocumentTitle("Registration");
 
 	const [username, setUsername] = useState("");
+	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirm, setConfirm] = useState("");
 	const [error, setError] = useState("");
@@ -20,10 +23,19 @@ function Registration() {
 			return;
 		}
 
+		const normalized = normalizeUserInput({ username, email, password });
+		const errors = validateUserInput(normalized);
+
+		if (Object.keys(errors).length > 0) {
+			setError(Object.values(errors)[0]);
+			return;
+		}
+
 		try {
-			await authApi.register(username, password);
+			await authApi.register(username, email, password);
 			setSuccess("Registration successful. You can now login.");
 			setUsername("");
+			setEmail("");
 			setPassword("");
 			setConfirm("");
 		} catch (err) {
@@ -42,6 +54,16 @@ function Registration() {
 						type="text"
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
+					/>
+				</label>
+				<br></br>
+
+				<label>
+					Email
+					<input
+						type="email"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
 					/>
 				</label>
 				<br></br>
