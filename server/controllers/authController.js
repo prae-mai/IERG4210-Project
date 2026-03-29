@@ -11,8 +11,9 @@ const COOKIE_NAME = "auth_token";
 
 const COOKIE_OPTIONS = {
 	httpOnly: true,
-	secure: false,
-	sameSite: "strict",
+	secure: process.env.NODE_ENV === "production",
+	sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+	path: "/",
 };
 
 export async function register(req, res) {
@@ -57,7 +58,12 @@ export async function logout(req, res) {
 			await logoutUser(sessionId);
 		}
 
-		res.clearCookie(COOKIE_NAME, COOKIE_OPTIONS);
+		res.clearCookie(COOKIE_NAME, {
+			httpOnly: true,
+			secure: process.env.NODE_ENV === "production",
+			sameSite: process.env.NODE_ENV === "production",
+			path: "/",
+		});
 
 		res.json({ message: "Logged out" });
 	} catch (err) {

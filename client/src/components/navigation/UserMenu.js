@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { userItems } from "../../data/userItems";
 
 function UserMenu({ user, onLogout }) {
 	const [open, setOpen] = useState(false);
+	const navigate = useNavigate();
 
 	function toggleMenu() {
 		setOpen((prev) => !prev);
@@ -12,6 +13,7 @@ function UserMenu({ user, onLogout }) {
 	function handleLogout() {
 		setOpen(false);
 		onLogout();
+		navigate("/login?loggedOut=1");
 	}
 
 	return (

@@ -1,16 +1,19 @@
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { useLocation, NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../utils/useDocumentTitle";
 import { userItems } from "../data/userItems";
-import { use, useState } from "react";
 import { useAuth } from "../utils/useAuth";
 
 function Login() {
 	useDocumentTitle("Login");
 
 	const { login } = useAuth();
+	const location = useLocation();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
+	const params = new URLSearchParams(location.search);
+	const loggedOut = params.get("loggedOut");
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -29,11 +32,9 @@ function Login() {
 
 			if (err.code === "USER_NOT_FOUND") {
 				setError("Username doesn't exist");
-			}
-			else if (err.code === "INVALID_PASSWORD") {
+			} else if (err.code === "INVALID_PASSWORD") {
 				setError("Incorrect password");
-			}
-			else {
+			} else {
 				setError("Login failed");
 			}
 		}
@@ -42,6 +43,8 @@ function Login() {
 	return (
 		<div>
 			<h1>Login</h1>
+
+			{loggedOut && <p>You have been logged out.</p>}
 
 			<form onSubmit={handleSubmit}>
 				<label>
