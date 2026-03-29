@@ -17,6 +17,10 @@ export function validateProductInput(product, { isEdit = false }) {
 		errors.name = ENGLISH.REQUIRED.NAME;
 	}
 
+	if (product.name && product.name.length > 200) {
+		errors.name = ENGLISH.TOO_LONG.PRODUCT_NAME;
+	}
+
 	if (
 		product.price === "" ||
 		!Number.isFinite(product.price) ||
@@ -25,12 +29,20 @@ export function validateProductInput(product, { isEdit = false }) {
 		errors.price = ENGLISH.PRODUCT.PRICE_MUST_BE_POSITIVE;
 	}
 
+	if (product.price && !/^\d+(\.\d{1,2})?$/.test(String(product.price))) {
+		errors.price = ENGLISH.PRODUCT.TWO_DECIMAL_PLACES;
+	}
+
 	if (!Number.isInteger(product.categoryId) || product.categoryId <= 0) {
 		errors.categoryId = ENGLISH.REQUIRED.CATEGORY;
 	}
 
 	if (!product.description) {
 		errors.description = ENGLISH.REQUIRED.DESCRIPTION;
+	}
+
+	if (product.description && product.description.length > 1000) {
+		errors.description = ENGLISH.TOO_LONG.DESCRIPTION;
 	}
 
 	if (!isEdit && !product.imageFile) {

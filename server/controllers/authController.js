@@ -11,8 +11,8 @@ const COOKIE_NAME = "auth_token";
 
 const COOKIE_OPTIONS = {
 	httpOnly: true,
-	secure: process.env.NODE_ENV === "production",
-	sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+	secure: process.env.NODE_ENV === "production" ? "true" : "false",
+	sameSite: "strict",
 	path: "/",
 };
 

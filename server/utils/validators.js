@@ -31,7 +31,7 @@ export function validateProductInput(data) {
 	const name = sanitizeString(data.name);
 	const description = sanitizeString(data.description);
 
-	const price = Number(data.price);
+	const price = Number.parseFloat(data.price);
 	const categoryId = validateId(data.categoryId, "categoryId");
 
 	if (!name) {
@@ -46,12 +46,17 @@ export function validateProductInput(data) {
 		throw new Error("Description required");
 	}
 
+	if (description.length > 1000) {
+		throw new Error("Description too long");
+	}
+
 	if (!Number.isFinite(price) || price <= 0) {
 		throw new Error("Invalid price");
 	}
 
-	if (description.length > 2000) {
-		throw new Error("Description too long");
+	// enforce 2 decimal places for price
+	if (!/^\d+(\.\d{1,2})?$/.test(String(data.price))) {
+		throw new Error("Price can only have up to 2 decimal places");
 	}
 
 	return {

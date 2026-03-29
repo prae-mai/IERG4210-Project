@@ -221,6 +221,8 @@ function AdminProductsTable({ onEdit }) {
 							<td>
 								{editingId === p.id ? (
 									<input
+										type="number"
+										step="0.01"
 										value={editData.price}
 										onChange={(e) =>
 											setEditData({
@@ -324,6 +326,8 @@ function AdminProductsTable({ onEdit }) {
 							</td>
 							<td>
 								<input
+									type="number"
+									step="0.01"
 									value={newProduct.price}
 									onChange={(e) =>
 										setNewProduct({

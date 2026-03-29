@@ -35,6 +35,12 @@ const ENGLISH = {
 		IMAGE: "Image is required.",
 	},
 
+	TOO_LONG: {
+		DESCRIPTION: "Description is too long.",
+		PRODUCT_NAME: "Product name is too long.",
+		CATEGORY_NAME: "Category name is too long.",
+	},
+
 	PRODUCT: {
 		ADD_NEW: "Add new product.",
 		NOT_FOUND: "Product not found.",
@@ -42,12 +48,12 @@ const ENGLISH = {
 		PRICE_MUST_BE_POSITIVE: "Price must be a positive number.",
 		FAILED_CREATE: "Failed to create product.",
 		FAILED_IMAGE_UPLOAD: "Failed to upload image.",
+		TWO_DECIMAL_PLACES: "Price can only have up to 2 decimal places",
 	},
 
 	CATEGORY: {
 		ADD_NEW: "Add new category.",
 		SELECT: "Select category.",
-		NAME_TOO_LONG: "Category name is too long.",
 	},
 
 	CART: {

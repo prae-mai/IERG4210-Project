@@ -14,7 +14,7 @@ export function validateCategoryInput(category) {
 	}
 
 	if (category.name.length > 100) {
-		errors.name = ENGLISH.CATEGORY.NAME_TOO_LONG;
+		errors.name = ENGLISH.TOO_LONG.CATEGORY_NAME;
 	}
 
 	return errors;
