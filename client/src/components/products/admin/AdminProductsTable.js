@@ -223,6 +223,7 @@ function AdminProductsTable({ onEdit }) {
 									<input
 										type="number"
 										step="0.01"
+										min="0.01"
 										value={editData.price}
 										onChange={(e) =>
 											setEditData({
@@ -291,7 +292,9 @@ function AdminProductsTable({ onEdit }) {
 										})
 									}
 								>
-									<option value="">{ENGLISH.CATEGORY.SELECT}</option>
+									<option value="">
+										{ENGLISH.CATEGORY.SELECT}
+									</option>
 									{categories.map((c) => (
 										<option key={c.id} value={c.id}>
 											{c.name}
@@ -328,6 +331,7 @@ function AdminProductsTable({ onEdit }) {
 								<input
 									type="number"
 									step="0.01"
+									min="0.01"
 									value={newProduct.price}
 									onChange={(e) =>
 										setNewProduct({

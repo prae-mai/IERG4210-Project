@@ -4,7 +4,7 @@ export function normalizeProductInput(raw) {
 	return {
 		name: raw.name?.trim() || "",
 		description: raw.description?.trim() || "",
-		price: raw.price === "" ? "" : Number(raw.price),
+		price: raw.price === "" ? "" : String(raw.price).trim(),
 		categoryId: raw.categoryId === "" ? "" : Number(raw.categoryId),
 		imageFile: raw.imageFile || null,
 	};
@@ -23,13 +23,12 @@ export function validateProductInput(product, { isEdit = false }) {
 
 	if (
 		product.price === "" ||
-		!Number.isFinite(product.price) ||
-		product.price <= 0
+		!Number.isFinite(Number(product.price)) ||
+		Number(product.price) <= 0
 	) {
 		errors.price = ENGLISH.PRODUCT.PRICE_MUST_BE_POSITIVE;
 	}
-
-	if (product.price && !/^\d+(\.\d{1,2})?$/.test(String(product.price))) {
+	else if (product.price && !/^\d+(\.\d{1,2})?$/.test(String(product.price))) {
 		errors.price = ENGLISH.PRODUCT.TWO_DECIMAL_PLACES;
 	}
 
