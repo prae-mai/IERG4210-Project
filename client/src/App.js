@@ -17,7 +17,7 @@ import AdminCategories from "./pages/AdminCategories";
 import ShoppingCart from "./pages/ShoppingCart";
 import Registration from "./pages/Registration";
 import Login from "./pages/Login";
-import PasswordReset from "./pages/PasswordReset";
+import PasswordChange from "./pages/PasswordChange";
 
 function App() {
 	const [isCartPreviewOpen, setCartPreviewOpen] = useState(false);
@@ -86,7 +86,7 @@ function App() {
 					/>
 					<Route path="/registration" element={<Registration />} />
 					<Route path="/login" element={<Login />} />
-					<Route path="/password-reset" element={<PasswordReset />} />
+					<Route path="/password-change" element={<PasswordChange />} />
 				</Routes>
 
 				<CartPreviewOverlay

@@ -5,8 +5,8 @@ import { useAuth } from "../utils/useAuth";
 
 import * as authApi from "../api/authApi";
 
-function PasswordReset() {
-	useDocumentTitle("Password Reset");
+function PasswordChange() {
+	useDocumentTitle("Password Change");
 
 	const { user, logout, loading } = useAuth();
 	const navigate = useNavigate();
@@ -23,7 +23,7 @@ function PasswordReset() {
 	if (!user) {
 		return (
 			<div>
-				<h1>Password Reset</h1>
+				<h1>Password Change</h1>
 				You need to be logged in to reset your password.
 				<br></br>
 				<br></br>
@@ -57,7 +57,7 @@ function PasswordReset() {
 
 	return (
 		<div>
-			<h1>Password Reset</h1>
+			<h1>Password Change</h1>
 
 			<form onSubmit={handleSubmit}>
 				<label>
@@ -99,4 +99,4 @@ function PasswordReset() {
 	);
 }
 
-export default PasswordReset;
+export default PasswordChange;
