@@ -3,6 +3,7 @@ import { CATEGORIES_BASE_URL } from "../config/apiConfig";
 export async function createCategory(data) {
 	const res = await fetch(CATEGORIES_BASE_URL, {
 		method: "POST",
+		credentials: "include",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
 	});
@@ -17,6 +18,7 @@ export async function createCategory(data) {
 export async function updateCategory(catid, data) {
 	const res = await fetch(`${CATEGORIES_BASE_URL}/${catid}`, {
 		method: "PUT",
+		credentials: "include",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
 	});
@@ -31,6 +33,7 @@ export async function updateCategory(catid, data) {
 export async function deleteCategory(catid) {
 	const res = await fetch(`${CATEGORIES_BASE_URL}/${catid}`, {
 		method: "DELETE",
+		credentials: "include",
 	});
 
 	if (!res.ok) {
