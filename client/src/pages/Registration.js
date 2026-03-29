@@ -23,6 +23,9 @@ function Registration() {
 		try {
 			await authApi.register(username, password);
 			setSuccess("Registration successful. You can now login.");
+			setUsername("");
+			setPassword("");
+			setConfirm("");
 		} catch (err) {
 			setError(err.message);
 		}

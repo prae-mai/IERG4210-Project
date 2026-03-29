@@ -11,11 +11,15 @@ function PasswordChange() {
 	const { user, logout, loading } = useAuth();
 	const navigate = useNavigate();
 
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
 	const [currentPassword, setCurrentPassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [error, setError] = useState("");
 	const [success, setSuccess] = useState("");
+
+
 	if (loading) {
 		return <p>Loading...</p>;
 	}
@@ -45,6 +49,10 @@ function PasswordChange() {
 			await authApi.changePassword(currentPassword, newPassword);
 
 			setSuccess("Password changed. Logging out...");
+
+			setUsername("");
+			setPassword("");
+			setConfirmPassword("");
 
 			// ensure frontend state clears
 			await logout();

@@ -12,6 +12,7 @@ function Login() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
+
 	const params = new URLSearchParams(location.search);
 	const loggedOut = params.get("loggedOut");
 
@@ -22,7 +23,6 @@ function Login() {
 		try {
 			await login(username, password);
 
-			// successful login, clear username and password fields
 			setUsername("");
 			setPassword("");
 		} catch (err) {
