@@ -18,22 +18,22 @@ function Navbar() {
 					</li>
 				))}
 
-				{!user && (
-					<li>
-						<NavLink to="/login">Login</NavLink>
-					</li>
-				)}
-
 				{user?.isAdmin && (
 					<li>
 						<NavLink to="/admin">Admin</NavLink>
 					</li>
 				)}
 
-				{user && (
+				<li>
+					<NavLink to="/login">Login</NavLink>
+				</li>
+
+				{user ? (
 					<li>
-						<UserMenu user={user} onLogout={logout}></UserMenu>
+						<UserMenu user={user} onLogout={logout} />
 					</li>
+				) : (
+					"You are a guest"
 				)}
 			</ul>
 		</nav>

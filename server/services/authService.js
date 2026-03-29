@@ -27,10 +27,10 @@ export async function registerUser(username, email, password) {
 	);
 }
 
-export async function loginUser(username, password) {
+export async function loginUser(email, password) {
 	const users = await dbQuery(
-		"SELECT id, password, isadmin FROM users WHERE username = ?",
-		[username],
+		"SELECT id, username, password, isadmin FROM users WHERE email = ?",
+		[email],
 	);
 
 	if (users.length === 0) {
@@ -60,7 +60,7 @@ export async function loginUser(username, password) {
 		sessionId,
 		user: {
 			id: user.id,
-			username,
+			username: user.username,
 			isAdmin: !!user.isadmin,
 		},
 	};

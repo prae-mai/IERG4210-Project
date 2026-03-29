@@ -8,8 +8,11 @@ function Login() {
 	useDocumentTitle("Login");
 
 	const { login } = useAuth();
+
 	const location = useLocation();
-	const [username, setUsername] = useState("");
+	
+	// const [username, setUsername] = useState("");
+	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 
@@ -21,9 +24,9 @@ function Login() {
 		setError("");
 
 		try {
-			await login(username, password);
+			await login(email, password);
 
-			setUsername("");
+			setEmail("");
 			setPassword("");
 		} catch (err) {
 			setError(err.message);
@@ -31,7 +34,7 @@ function Login() {
 			setPassword("");
 
 			if (err.code === "USER_NOT_FOUND") {
-				setError("Username doesn't exist");
+				setError("Email doesn't exist");
 			} else if (err.code === "INVALID_PASSWORD") {
 				setError("Incorrect password");
 			} else {
@@ -48,11 +51,11 @@ function Login() {
 
 			<form onSubmit={handleSubmit}>
 				<label>
-					Username
+					Email
 					<input
-						type="text"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
+						type="email"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
 					/>
 				</label>
 				<br></br>
