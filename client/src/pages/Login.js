@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, NavLink } from "react-router-dom";
+import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import { useDocumentTitle } from "../utils/useDocumentTitle";
 import { userItems } from "../data/userItems";
 import { useAuth } from "../utils/useAuth";
@@ -7,9 +7,10 @@ import { useAuth } from "../utils/useAuth";
 function Login() {
 	useDocumentTitle("Login");
 
-	const { login } = useAuth();
+	const { user, login } = useAuth();
 
 	const location = useLocation();
+	const navigate = useNavigate();
 	
 	// const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
@@ -28,6 +29,10 @@ function Login() {
 
 			setEmail("");
 			setPassword("");
+
+			if (user.isAdmin) {
+				navigate("/admin");
+			}
 		} catch (err) {
 			setError(err.message);
 

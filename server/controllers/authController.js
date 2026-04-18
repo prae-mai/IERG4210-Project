@@ -63,7 +63,7 @@ export async function logout(req, res) {
 			await logoutUser(sessionId);
 		}
 
-		res.clearCookie(COOKIE_NAME, COOKIE_OPTIONS);
+		res.clearCookie(COOKIE_NAME);
 
 		res.json({ message: "Logged out" });
 	} catch (err) {
@@ -82,7 +82,7 @@ export async function changePasswordHandler(req, res) {
 
 		await changePassword(req.user.id, currentPassword, newPassword);
 
-		res.clearCookie(COOKIE_NAME, COOKIE_OPTIONS);
+		res.clearCookie(COOKIE_NAME);
 
 		res.json({ message: "Password changed. Please login again." });
 	} catch (err) {
