@@ -3,6 +3,7 @@ import { CartContext } from "./CartContext";
 import { createCartItem } from "./createCartItem";
 import { isValidQuantity, parseQuantity } from "./cartValidation";
 import { CART_ACTIONS, CART_LIMITS } from "../config/shoppingCartConfig";
+import { createOrder } from "../api/ordersApi";
 
 import ENGLISH from "../i18n/english";
 
@@ -52,14 +53,35 @@ export function useCartActions() {
 		dispatch({ type: CART_ACTIONS.CLEAR_CART });
 	}
 
-	function checkout(items) {
-		if (items.length === 0) {
+	async function checkout(orderItems) {
+		if (!orderItems || orderItems.length === 0) {
 			alert(ENGLISH.CART.ERROR.EMPTY_ON_CHECKOUT);
 			return;
 		}
 
+		for (const item of orderItems) {
+			if (
+				!Number.isInteger(item.productId) ||
+				item.productId <= 0 ||
+				!isValidQuantity(item.quantity)
+			) {
+				alert(ENGLISH.CART.ERROR.INVALID_QUANTITY + "checkout invalid quant");
+				return;
+			}
+		}
+
 		dispatch({ type: CART_ACTIONS.LOCK_CART });
-		alert(ENGLISH.CART.STATUS.CHECKOUT_SUCCESSFUL);
+
+		try {
+			await createOrder(orderItems);
+
+			dispatch({ type: CART_ACTIONS.CLEAR_CART });
+			alert(ENGLISH.CART.STATUS.CHECKOUT_SUCCESSFUL + "checkout create order try");
+		} catch (err) {
+			console.error(err);
+			alert(err.message || "Checkout failed");
+			dispatch({ type: CART_ACTIONS.UNLOCK_CART });
+		}
 	}
 
 	function unlockCart() {

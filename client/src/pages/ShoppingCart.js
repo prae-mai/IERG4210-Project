@@ -48,7 +48,19 @@ function ShoppingCart() {
 								{ENGLISH.CART.ACTIONS.CANCEL_CHECKOUT}
 							</button>
 						) : (
-							<button onClick={checkout} disabled={isLocked}>
+							<button
+								onClick={() =>
+									checkout(
+										items.map(
+											({ productId, quantity }) => ({
+												productId,
+												quantity,
+											}),
+										),
+									)
+								}
+								disabled={isLocked}
+							>
 								{ENGLISH.CART.ACTIONS.CHECKOUT}
 							</button>
 						)}

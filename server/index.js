@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import productsRoutes from "./routes/products.js";
 import categoriesRoutes from "./routes/categories.js";
 import authRoutes from "./routes/auth.js"
+import ordersRoutes from "./routes/orders.js"
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use("/images/products", express.static(path.join(process.cwd(), "uploads/pro
 app.use("/api/products", productsRoutes);
 app.use("/api/categories", categoriesRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/orders", ordersRoutes);
 
 const PORT = 5000;
 app.listen(PORT, () => {

@@ -43,9 +43,7 @@ function CartPreview({ onClose }) {
 							<li key={item.productId}>
 								<button
 									type="button"
-									onClick={() =>
-										handleItemClick(item)
-									}
+									onClick={() => handleItemClick(item)}
 									className="cart-preview__item"
 								>
 									<span className="cart-preview__item-name">
@@ -83,7 +81,19 @@ function CartPreview({ onClose }) {
 						<button onClick={handleViewCart}>
 							{ENGLISH.CART.VIEW_FULL_CART}
 						</button>
-						<button onClick={checkout} disabled={isLocked}>
+						<button
+							onClick={() =>
+								checkout(
+									previewItems.map(
+										({ productId, quantity }) => ({
+											productId,
+											quantity,
+										}),
+									),
+								)
+							}
+							disabled={isLocked}
+						>
 							{ENGLISH.CART.ACTIONS.CHECKOUT}
 						</button>
 					</div>
