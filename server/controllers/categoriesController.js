@@ -1,9 +1,11 @@
 import { validateCategoryName, validateId } from "../utils/validators.js";
+import { assertAdmin } from "./authController.js";
 
 import * as categoryService from "../services/categoriesService.js";
 
 export async function create(req, res) {
 	try {
+		assertAdmin(req);
 		const categoryName = validateCategoryName(req.body.name);
 		const catid = await categoryService.createCategory(categoryName);
 		
@@ -19,6 +21,7 @@ export async function create(req, res) {
 
 export async function update(req, res) {
 	try {
+		assertAdmin(req);
 		const catid = validateId(req.params.catid, "category id");
 		const name = validateCategoryName(req.body.name);
 		
@@ -33,6 +36,7 @@ export async function update(req, res) {
 
 export async function remove(req, res) {
 	try {
+		assertAdmin(req);
 		const catid = validateId(req.params.catid, "category id");
 		await categoryService.deleteCategory(catid);
 

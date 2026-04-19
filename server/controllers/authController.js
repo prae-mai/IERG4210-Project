@@ -20,6 +20,12 @@ const COOKIE_OPTIONS = {
 	path: "/",
 };
 
+export function assertAdmin(req) {
+	if (!req.user || !req.user.isAdmin) {
+		throw new Error("Unauthorized");
+	}
+}
+
 export async function register(req, res) {
 	try {
 		const username = validateUsername(req.body.username);

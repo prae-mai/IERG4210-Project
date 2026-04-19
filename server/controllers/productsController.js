@@ -1,4 +1,5 @@
 import { validateProductInput, validateId } from "../utils/validators.js";
+import { assertAdmin } from "./authController.js";
 
 import multer from "multer";
 import sharp from "sharp";
@@ -6,12 +7,6 @@ import path from "path";
 import fs from "fs";
 
 import * as productService from "../services/productsService.js";
-
-function assertAdmin(req) {
-	if (!req.user || !req.user.isAdmin) {
-		throw new Error("Unauthorized");
-	}
-}
 
 const upload = multer({
 	storage: multer.memoryStorage(),
