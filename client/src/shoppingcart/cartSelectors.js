@@ -1,4 +1,4 @@
-import { CART_PREVIEW_LIMIT } from "../config/shoppingCartConfig";
+import { CART_PREVIEW_LIMIT } from "../../../shared/config/shoppingCartConfig";
 
 export function selectAllCartItems(cartState) {
 	return cartState.items;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { CART_LIMITS } from "../config/shoppingCartConfig";
+import { CART_LIMITS } from "../../../shared/config/shoppingCartConfig";
 
 import ENGLISH from "../i18n/english";
 

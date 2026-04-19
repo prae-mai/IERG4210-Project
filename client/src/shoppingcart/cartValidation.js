@@ -1,4 +1,4 @@
-import { CART_LIMITS } from "../config/shoppingCartConfig";
+import { CART_LIMITS } from "../../../shared/config/shoppingCartConfig";
 
 export function isValidQuantity(value) {
 	const quantity = Number(value);

@@ -4,7 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { useDocumentTitle } from "../utils/useDocumentTitle";
 
 import { getProducts, getProductById } from "../api/productsApi";
-import { PRODUCT_DETAIL_STATUS } from "../config/productStatus";
+import { PRODUCT_DETAIL_STATUS } from "../../../shared/config/productStatus";
 import { slugify } from "../utils/slugify";
 
 import ProductItem from "../components/products/public/ProductItem";
