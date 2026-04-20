@@ -1,4 +1,4 @@
-import { PRODUCT_FIELDS, PRODUCT_VIEWS } from "../../../../../shared/config/productViews";
+import { PRODUCT_FIELDS, PRODUCT_VIEWS } from "../../../config/productViews";
 
 import ProductThumbnail from "./ProductThumbnail";
 import ProductName from "./ProductName";

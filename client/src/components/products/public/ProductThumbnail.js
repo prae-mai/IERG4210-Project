@@ -1,4 +1,4 @@
-import { BASE_API_URL } from "../../../../../shared/config/apiConfig";
+import { BASE_API_URL } from "../../../config/apiConfig";
 
 function ProductThumbnail({ product, field }) {
 	return (

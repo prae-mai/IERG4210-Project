@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { CartContext } from "./CartContext";
 import { createCartItem } from "./createCartItem";
 import { isValidQuantity, parseQuantity } from "./cartValidation";
-import { CART_ACTIONS, CART_LIMITS } from "../../../shared/config/shoppingCartConfig";
+import { CART_ACTIONS, CART_LIMITS } from "../config/shoppingCartConfig";
 import { createOrder } from "../api/ordersApi";
 
 import ENGLISH from "../i18n/english";

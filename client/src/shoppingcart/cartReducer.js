@@ -1,4 +1,4 @@
-import { CART_ACTIONS, CART_LIMITS } from "../../../shared/config/shoppingCartConfig";
+import { CART_ACTIONS, CART_LIMITS } from "../config/shoppingCartConfig";
 import { isValidQuantity } from "./cartValidation";
 import { initialCartState } from "./cartState";
 

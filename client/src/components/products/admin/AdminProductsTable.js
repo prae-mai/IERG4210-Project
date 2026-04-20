@@ -6,7 +6,7 @@ import {
 	updateProduct,
 	uploadProductImage,
  } from "../../../api/productsApi";
-import { BASE_API_URL } from "../../../../../shared/config/apiConfig";
+import { BASE_API_URL } from "../../../config/apiConfig";
 import { getCategories } from "../../../api/categoriesApi";
 import { normalizeProductInput, validateProductInput } from "../../../utils/validateProduct";
 
