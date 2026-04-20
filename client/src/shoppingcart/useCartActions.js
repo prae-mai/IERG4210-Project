@@ -65,7 +65,7 @@ export function useCartActions() {
 				item.productId <= 0 ||
 				!isValidQuantity(item.quantity)
 			) {
-				alert(ENGLISH.CART.ERROR.INVALID_QUANTITY + "checkout invalid quant");
+				alert(ENGLISH.CART.ERROR.INVALID_QUANTITY);
 				return;
 			}
 		}
@@ -73,10 +73,13 @@ export function useCartActions() {
 		dispatch({ type: CART_ACTIONS.LOCK_CART });
 
 		try {
-			await createOrder(orderItems);
+			const result = await createOrder(orderItems);
 
 			dispatch({ type: CART_ACTIONS.CLEAR_CART });
-			alert(ENGLISH.CART.STATUS.CHECKOUT_SUCCESSFUL + "checkout create order try");
+			alert(
+				`${ENGLISH.CART.STATUS.CHECKOUT_SUCCESSFUL}\n` +
+				`Order ID: ${result.orderId}`
+			);
 		} catch (err) {
 			console.error(err);
 			alert(err.message || "Checkout failed");

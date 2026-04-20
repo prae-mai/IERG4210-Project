@@ -85,7 +85,7 @@ export async function createOrder({ userId, items }) {
 	return {
 		orderId: Number(result.insertId),
 		digest,
-		randomsalt,
+		randomSalt,
 		currency,
 		merchantEmail,
 		itemsWithPrice,
