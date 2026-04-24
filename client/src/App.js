@@ -14,6 +14,7 @@ import Products from "./pages/Products";
 import Admin from "./pages/Admin";
 import AdminProducts from "./pages/AdminProducts";
 import AdminCategories from "./pages/AdminCategories";
+import AdminOrders from "./pages/AdminOrders";
 import ShoppingCart from "./pages/ShoppingCart";
 import Registration from "./pages/Registration";
 import Login from "./pages/Login";
@@ -39,7 +40,6 @@ function App() {
 
 		return children;
 	}
-
 
 	return (
 		<CartProvider>
@@ -84,9 +84,20 @@ function App() {
 							</RequireAdmin>
 						}
 					/>
+					<Route
+						path="/admin/orders"
+						element={
+							<RequireAdmin>
+								<AdminOrders />
+							</RequireAdmin>
+						}
+					/>
 					<Route path="/registration" element={<Registration />} />
 					<Route path="/login" element={<Login />} />
-					<Route path="/password-change" element={<PasswordChange />} />
+					<Route
+						path="/password-change"
+						element={<PasswordChange />}
+					/>
 				</Routes>
 
 				<CartPreviewOverlay

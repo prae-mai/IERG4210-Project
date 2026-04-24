@@ -40,3 +40,30 @@ export async function create(req, res) {
 		res.status(400).json({ error: err.message });
 	}
 }
+
+export async function getAll(req, res) {
+	try {
+		const orders = await ordersService.getAllOrders();
+		res.json(orders);
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ error: "Failed to fetch orders" });
+	}
+}
+
+export async function getById(req, res) {
+	try {
+		const id = validateId(req.params.id, "order id");
+
+		const order = await ordersService.getOrderById(id);
+
+		if (!order) {
+			return res.status(404).json({ error: "Order not found" });
+		}
+
+		res.json(order);
+	} catch (err) {
+		console.error(err);
+		res.status(400).json({ error: err.message });
+	}
+}

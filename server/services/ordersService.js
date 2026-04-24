@@ -65,7 +65,7 @@ export async function createOrder({ userId, items }) {
 		.createHash("sha256")
 		.update(digestString)
 		.digest("hex");
-	
+
 	const cartContent = JSON.stringify(itemsWithPrice);
 
 	const result = await dbQuery(
@@ -79,7 +79,7 @@ export async function createOrder({ userId, items }) {
 			randomSalt,
 			cartContent,
 			normalizedTotalPrice,
-		]
+		],
 	);
 
 	return {
@@ -90,5 +90,35 @@ export async function createOrder({ userId, items }) {
 		merchantEmail,
 		itemsWithPrice,
 		totalPrice: normalizedTotalPrice,
+	};
+}
+
+export async function getAllOrders() {
+	// newest orders first
+	const rows = await dbQuery(`SELECT * FROM orders ORDER BY orderid DESC`);
+	return rows.map(mapOrderRow);
+}
+
+export async function getOrderById(orderId) {
+	const rows = await dbQuery(`SELECT * FROM orders WHERE orderid = ?`, [
+		orderId,
+	]);
+
+	if (rows.length === 0) {
+		return null;
+	}
+
+	return mapOrderRow(rows[0]);
+}
+
+function mapOrderRow(row) {
+	return {
+		id: row.orderid,
+		userId: row.userid,
+		currency: row.currency,
+		merchantEmailAddress: row.merchantemailaddress,
+		randomSalt: row.randomsalt,
+		cartcontent: row.cartcontent,
+		totalPrice: Number(row.totalprice),
 	};
 }
