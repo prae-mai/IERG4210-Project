@@ -13,10 +13,10 @@ function Orders() {
 	const [orders, setOrders] = useState([]);
 	const [loading, setLoading] = useState(true);
 
-	const { clearCart } = useCartActions();
+	const { clearCart, unlockCart } = useCartActions();
 
-	const params = new URLSearchParams(location.search);
-	const paymentSuccess = params.get("success") === "true";
+	const [paymentSuccess, setPaymentSuccess] = useState(false);
+	const [handledSuccess, setHandledSuccess] = useState(false);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -43,11 +43,28 @@ function Orders() {
 	}, []);
 
 	useEffect(() => {
+		const params = new URLSearchParams(location.search);
+		setPaymentSuccess(params.get("success") === "true");
+	}, [location.search]);
+
+	useEffect(() => {
 		if (paymentSuccess) {
-			clearCart();
-			navigate("/orders", { replace: true });
+			unlockCart();
 		}
-	}, [paymentSuccess, clearCart, navigate]);
+	}, [paymentSuccess, unlockCart]);
+
+	useEffect(() => {
+		if (!paymentSuccess || loading || handledSuccess) return;
+
+		const hasPaidOrder = orders.some((order) => order.status === "paid");
+
+		if (hasPaidOrder) {
+			clearCart();
+			setHandledSuccess(true);
+			navigate(location.pathname, { replace: true });
+		}
+		
+	}, [paymentSuccess, orders, loading, clearCart, navigate]);
 
 	return (
 		<section className="orders">
