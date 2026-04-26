@@ -85,7 +85,7 @@ export async function createOrder({ userId, items }) {
 		digest,
 		randomSalt,
 		CURRENCY,
-		merchantEmail,
+		MERCHANT_EMAIL,
 		itemsWithPrice,
 		totalPrice: normalizedTotalPrice,
 	};
