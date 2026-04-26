@@ -11,6 +11,7 @@ import CartPreviewOverlay from "./shoppingcart/CartPreviewOverlay";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Products from "./pages/Products";
+import Orders from "./pages/Orders";
 import Admin from "./pages/Admin";
 import AdminProducts from "./pages/AdminProducts";
 import AdminCategories from "./pages/AdminCategories";
@@ -92,6 +93,7 @@ function App() {
 							</RequireAdmin>
 						}
 					/>
+					<Route path="/orders" element={<Orders></Orders>} />
 					<Route path="/registration" element={<Registration />} />
 					<Route path="/login" element={<Login />} />
 					<Route

@@ -119,7 +119,7 @@ export async function handleStripeWebhook(req, res) {
 
 	try {
 		event = stripe.webhooks.constructEvent(
-			req.rawBody,
+			req.body,
 			req.headers["stripe-signature"],
 			process.env.STRIPE_WEBHOOK_SECRET,
 		);
@@ -132,6 +132,10 @@ export async function handleStripeWebhook(req, res) {
 		if (event.type === "checkout.session.completed") {
 			const session = event.data.object;
 
+			if (!session.metadata?.orderId || !session.metadata?.digest) {
+				throw new Error("Missing metadata in Stripe session");
+			}
+
 			const orderId = Number(session.metadata.orderId);
 			const digest = session.metadata.digest;
 
@@ -139,8 +143,16 @@ export async function handleStripeWebhook(req, res) {
 				orderId,
 				digest,
 				stripeSessionId: session.id,
-				stripePaymentIntentId: session.payment_intent,
+				stripePaymentIntentId: session.payment_intent || null,
 			});
+		}
+
+		if (event.type === "checkout.session.expired") {
+			const session = event.data.object;
+
+			if (session.metadata?.orderId) {
+				await ordersService.markOrderFailed(Number(session.metadata.orderId));
+			}
 		}
 
 		res.json({ received: true });

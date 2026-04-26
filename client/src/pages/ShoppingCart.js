@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { useDocumentTitle } from "../utils/useDocumentTitle";
 
 import { CartContext } from "../shoppingcart/CartContext";
@@ -13,26 +12,20 @@ import ENGLISH from "../i18n/english.js"
 function ShoppingCart() {
 	useDocumentTitle("Shopping Cart");
 
-	const location = useLocation();
-
 	const { cartState, dispatch } = useContext(CartContext);
 	const items = selectAllCartItems(cartState);
 	const totalPrice = selectTotalPrice(cartState);
 
 	const { isLocked, setQuantity, removeItem, clearCart, checkout, unlockCart } = useCartActions();
 
-	useEffect(() => {
-		const params = new URLSearchParams(location.search);
-
-		if (params.get("cancelled") === "true") {
-			unlockCart();
-			alert(ENGLISH.CART.STATUS.CANCEL_CHECKOUT);
-		}
-	}, [location.search, unlockCart]);
+	const params = new URLSearchParams(location.search);
+	const paymentCanceled = params.get("canceled");
 
 	return (
 		<section className="shopping-cart">
 			<h1 className="shopping-cart__title">{ENGLISH.CART.TITLE}</h1>
+
+			{paymentCanceled && <p>Payment canceled, your shopping cart is preserved</p>}
 
 			{items.length === 0 ? (
 				<p className="shopping-cart__empty">{ENGLISH.CART.EMPTY}</p>

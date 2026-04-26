@@ -22,17 +22,12 @@ app.use(
 		credentials: true,
 	}),
 );
-app.use(express.json()); // allows JSON body
-app.use(cookieParser());
-
 app.post(
 	"/api/orders/webhook",
-	express.raw({ type: "application/json" }),
-	(req, res, next) => {
-		req.rawBody = req.body;
-		next();
-	},
+	express.raw({ type: "application/json"})
 );
+app.use(express.json());
+app.use(cookieParser());
 
 app.use(
 	"/images/products",

@@ -143,31 +143,14 @@ export async function processSuccessfulPayment({
 		return;
 	}
 
-	const cartItems = JSON.parse(order.cartcontent);
+	if (!stripeSessionId) {
+		throw new Error("Missing Stripe session ID");
+	}
 
-	const sortedItems = [...cartItems].sort((a, b) => a.pid - b.pid);
-
-	const itemsString = sortedItems
-		.map((item) => `${item.pid}:${item.quantity}:${item.price.toFixed(2)}`)
-		.join("|");
-
-	const digestString = [
-		order.currency,
-		order.merchantemailaddress,
-		order.randomsalt,
-		itemsString,
-		Number(order.totalprice).toFixed(2),
-	].join("|");
-
-	const crypto = await import("crypto");
-
-	const recomputedDigest = crypto
-		.createHash("sha256")
-		.update(digestString)
-		.digest("hex");
+	const recomputedDigest = computeDigestFromOrderRow(order)
 
 	if (recomputedDigest !== digest) {
-		throw new Error("Digest mismatch - possible tampering");
+		throw new Error("Digest mismatch, possible tampering");
 	}
 
 	await dbQuery(
@@ -178,5 +161,40 @@ export async function processSuccessfulPayment({
 		     processed_at = NOW()
 		 WHERE orderid = ?`,
 		[stripeSessionId, stripePaymentIntentId, orderId],
+	);
+}
+
+function computeDigestFromOrderRow(row) {
+	const cartItems = JSON.parse(row.cartcontent);
+
+	const sortedItems = [...cartItems].sort((a, b) => a.pid - b.pid);
+
+	const itemsString = sortedItems
+		.map((item) => `${item.pid}:${item.quantity}:${item.price.toFixed(2)}`)
+		.join("|");
+
+	const digestString = [
+		row.currency,
+		row.merchantemailaddress,
+		row.randomsalt,
+		itemsString,
+		Number(row.totalprice).toFixed(2),
+	].join("|");
+
+	const recomputedDigest = crypto
+		.createHash("sha256")
+		.update(digestString)
+		.digest("hex");
+
+	return recomputedDigest;
+}
+
+export async function markOrderFailed(orderId) {
+	await dbQuery(
+		`UPDATE orders
+		 SET status = 'failed',
+			processed_at = NOW()
+		 WHERE orderid = ? AND status = 'pending'`,
+		 [orderId]
 	);
 }

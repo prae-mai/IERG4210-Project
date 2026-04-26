@@ -34,7 +34,7 @@ export async function createCheckoutSession({ order }) {
 		},
 
 		success_url: `${process.env.CLIENT_URL}/orders?success=true`,
-		cancel_url: `${process.env.CLIENT_URL}/shopping-cart?cancelled=true`,
+		cancel_url: `${process.env.CLIENT_URL}/shopping-cart?canceled=true`,
 	});
 
 	return session;
