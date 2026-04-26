@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useDocumentTitle } from "../utils/useDocumentTitle";
 
 import { CartContext } from "../shoppingcart/CartContext";
@@ -12,11 +13,22 @@ import ENGLISH from "../i18n/english.js"
 function ShoppingCart() {
 	useDocumentTitle("Shopping Cart");
 
+	const location = useLocation();
+
 	const { cartState, dispatch } = useContext(CartContext);
 	const items = selectAllCartItems(cartState);
 	const totalPrice = selectTotalPrice(cartState);
 
 	const { isLocked, setQuantity, removeItem, clearCart, checkout, unlockCart } = useCartActions();
+
+	useEffect(() => {
+		const params = new URLSearchParams(location.search);
+
+		if (params.get("cancelled") === "true") {
+			unlockCart();
+			alert(ENGLISH.CART.STATUS.CANCEL_CHECKOUT);
+		}
+	}, [location.search, unlockCart]);
 
 	return (
 		<section className="shopping-cart">

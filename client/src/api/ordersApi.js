@@ -8,7 +8,7 @@ export async function createOrder(cartItems) {
 		})),
 	};
 
-	const response = await fetch(ORDERS_BASE_URL, {
+	const response = await fetch(`${ORDERS_BASE_URL}/checkout-session`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",

@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import { requestLogger } from "./requestLogger.js";
 
 import express from "express";
@@ -7,8 +10,8 @@ import pool from "./db.js";
 import cookieParser from "cookie-parser";
 import productsRoutes from "./routes/products.js";
 import categoriesRoutes from "./routes/categories.js";
-import authRoutes from "./routes/auth.js"
-import ordersRoutes from "./routes/orders.js"
+import authRoutes from "./routes/auth.js";
+import ordersRoutes from "./routes/orders.js";
 
 const app = express();
 
@@ -21,7 +24,10 @@ app.use(
 );
 app.use(express.json()); // allows JSON body
 app.use(cookieParser());
-app.use("/images/products", express.static(path.join(process.cwd(), "uploads/products")));
+app.use(
+	"/images/products",
+	express.static(path.join(process.cwd(), "uploads/products")),
+);
 
 app.use("/api/products", productsRoutes);
 app.use("/api/categories", categoriesRoutes);

@@ -75,6 +75,11 @@ export function useCartActions() {
 		try {
 			const result = await createOrder(orderItems);
 
+			if (result?.checkoutUrl) {
+				window.location.href = result.checkoutUrl;
+				return;
+			}
+
 			dispatch({ type: CART_ACTIONS.CLEAR_CART });
 			alert(
 				`${ENGLISH.CART.STATUS.CHECKOUT_SUCCESSFUL}\n` +

@@ -73,7 +73,6 @@ const ENGLISH = {
 			CLEAR: "Clear cart",
 			UPDATE: "Update",
 			REMOVE: "Remove",
-			CANCEL_CHECKOUT: "Cancel checkout",
 		},
 		STATUS: {
 			UNLOCKED: "Your cart is unlocked and can be modified.",

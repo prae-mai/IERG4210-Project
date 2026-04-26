@@ -1,6 +1,7 @@
 import { validateId } from "../utils/validators.js";
 
 import * as ordersService from "../services/ordersService.js";
+import * as paymentsService from "../services/paymentsService.js";
 
 export async function create(req, res) {
 	try {
@@ -62,6 +63,47 @@ export async function getById(req, res) {
 		}
 
 		res.json(order);
+	} catch (err) {
+		console.error(err);
+		res.status(400).json({ error: err.message });
+	}
+}
+
+export async function createCheckoutSession(req, res) {
+	try {
+		const { items } = req.body;
+
+		if (!Array.isArray(items) || items.length === 0) {
+			throw new Error("Order must contain items");
+		}
+
+		const validatedItems = items.map((item) => {
+			const pid = validateId(item.pid, "product id");
+			const quantity = Number(item.quantity);
+
+			if (!Number.isInteger(quantity) || quantity <= 0) {
+				throw new Error("Invalid quantity");
+			}
+
+			return { pid, quantity };
+		});
+
+		if (!req.user) {
+			return res.status(401).json({ error: "You are not logged in" });
+		}
+
+		const order = await ordersService.createOrder({
+			userId: req.user.id,
+			items: validatedItems,
+		});
+
+		const session = await paymentsService.createCheckoutSession({
+			order,
+		});
+
+		res.status(201).json({
+			checkoutUrl: session.url,
+		});
 	} catch (err) {
 		console.error(err);
 		res.status(400).json({ error: err.message });
