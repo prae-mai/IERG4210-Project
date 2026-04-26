@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
 import { getMyOrders } from "../api/ordersApi";
 import { useCartActions } from "../shoppingcart/useCartActions";
+import { parseCartContent } from "../utils/parseOrder";
 
 import ENGLISH from "../i18n/english";
 
@@ -25,7 +25,6 @@ function Orders() {
 			try {
 				const data = await getMyOrders();
 				console.log("Fetched orders:", data);
-				// users only see most recent 5 orders
 				if (isMounted) {
 					setOrders(data);
 				}
@@ -63,17 +62,39 @@ function Orders() {
 			{orders.length === 0 ? (
 				<p>No orders found.</p>
 			) : (
-				<ul className="orders__list">
-					{orders.map((order) => (
-						<li key={order.id} className="orders__item">
-							<p>
-								<strong>Order #{order.id}</strong>
-							</p>
-							<p>Total: ${order.totalPrice.toFixed(2)}</p>
-							<p>Status: {order.status}</p>
-						</li>
-					))}
-				</ul>
+				<table border="1" cellPadding="5">
+					<thead>
+						<tr>
+							<th>Order ID</th>
+							<th>Currency</th>
+							<th>Product ID(s)</th>
+							<th>Quantity</th>
+							<th>Prices</th>
+							<th>Total Price</th>
+							<th>Status</th>
+							<th>Processed at</th>
+						</tr>
+					</thead>
+				
+					<tbody>
+						{orders.map((order) => {
+							const { pids, quantities, prices } =
+								parseCartContent(order.cartcontent);
+							return (
+								<tr key={order.id}>
+									<td>{order.id}</td>
+									<td>{order.currency}</td>
+									<td>{pids}</td>
+									<td>{quantities}</td>
+									<td>{prices}</td>
+									<td>{order.totalPrice}</td>
+									<td>{order.status}</td>
+									<td>{order.processedAt}</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
 			)}
 		</section>
 	);
