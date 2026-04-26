@@ -1,5 +1,6 @@
 import { dbQuery } from "../utils/dbQuery.js";
 import { CART_LIMITS } from "../config/shoppingCartConfig.js";
+import { CURRENCY, MERCHANT_EMAIL } from "../config/paymentConfig.js";
 
 import crypto from "crypto";
 
@@ -42,9 +43,6 @@ export async function createOrder({ userId, items }) {
 
 	const normalizedTotalPrice = Number(totalPrice.toFixed(2));
 
-	const currency = "insert currency here";
-	const merchantEmail = "insert email here";
-
 	const randomSalt = crypto.randomBytes(16).toString("hex");
 
 	const sortedItems = [...itemsWithPrice].sort((a, b) => a.pid - b.pid);
@@ -54,8 +52,8 @@ export async function createOrder({ userId, items }) {
 		.join("|");
 
 	const digestString = [
-		currency,
-		merchantEmail,
+		CURRENCY,
+		MERCHANT_EMAIL,
 		randomSalt,
 		itemsString,
 		normalizedTotalPrice.toFixed(2),
@@ -74,8 +72,8 @@ export async function createOrder({ userId, items }) {
 		VALUES (?, ?, ?, ?, ?, ?)`,
 		[
 			userId,
-			currency,
-			merchantEmail,
+			CURRENCY,
+			MERCHANT_EMAIL,
 			randomSalt,
 			cartContent,
 			normalizedTotalPrice,
