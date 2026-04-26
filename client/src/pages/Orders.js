@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { getOrders } from "../api/ordersApi";
+import { getMyOrders } from "../api/ordersApi";
 import { useCartActions } from "../shoppingcart/useCartActions";
 
 import ENGLISH from "../i18n/english";
@@ -23,10 +23,11 @@ function Orders() {
 
 		async function fetchOrders() {
 			try {
-				const data = await getOrders();
+				const data = await getMyOrders();
+				console.log("Fetched orders:", data);
 				// users only see most recent 5 orders
 				if (isMounted) {
-					setOrders(data.slice(0, 5));
+					setOrders(data);
 				}
 			} catch (err) {
 				console.error(err);
@@ -69,7 +70,7 @@ function Orders() {
 								<strong>Order #{order.id}</strong>
 							</p>
 							<p>Total: ${order.totalPrice.toFixed(2)}</p>
-							<p>Status: {order.status || "pending"}</p>
+							<p>Status: {order.status}</p>
 						</li>
 					))}
 				</ul>

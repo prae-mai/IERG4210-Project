@@ -111,6 +111,15 @@ export async function getOrderById(orderId) {
 	return mapOrderRow(rows[0]);
 }
 
+export async function getOrdersByUser(userId) {
+	const rows = await dbQuery(
+		`SELECT * FROM orders WHERE userid = ? ORDER BY orderid DESC LIMIT 5`,
+		[userId]
+	);
+	
+	return rows.map(mapOrderRow);
+}
+
 function mapOrderRow(row) {
 	return {
 		id: row.orderid,
@@ -120,6 +129,7 @@ function mapOrderRow(row) {
 		randomSalt: row.randomsalt,
 		cartcontent: row.cartcontent,
 		totalPrice: Number(row.totalprice),
+		status: row.status,
 	};
 }
 

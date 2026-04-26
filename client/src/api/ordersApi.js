@@ -105,3 +105,24 @@ export async function getOrderById(orderId) {
 
 	return data;
 }
+
+export async function getMyOrders() {
+	const res = await fetch(`${ORDERS_BASE_URL}/my`, {
+		credentials: "include",
+	});
+
+	const text = await res.text();
+	let data;
+
+	try {
+		data = text ? JSON.parse(text) : [];
+	} catch {
+		throw new Error("Server returned invalid JSON");
+	}
+
+	if (!res.ok) {
+		throw new Error(data.error || "Failed to fetch user orders");
+	}
+
+	return data;
+}

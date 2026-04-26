@@ -9,6 +9,7 @@ router.post("/", requireAuth, controller.create);
 router.post("/checkout-session", requireAuth, controller.createCheckoutSession);
 router.post("/webhook", controller.handleStripeWebhook);
 
+router.get("/my", requireAuth, controller.getAllByUser);
 router.get("/", requireAuth, controller.getAll);
 router.get("/:id", requireAuth, controller.getById);
 
