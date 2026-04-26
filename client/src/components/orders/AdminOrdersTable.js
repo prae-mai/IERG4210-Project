@@ -35,6 +35,10 @@ function AdminOrdersTable({ onEdit }) {
 						<th>Quantity</th>
 						<th>Prices</th>
 						<th>Total Price</th>
+						<th>Status</th>
+						<th>Stripe session ID</th>
+						<th>Stripe payment intent ID</th>
+						<th>Processed at</th>
 					</tr>
 				</thead>
 
@@ -53,6 +57,10 @@ function AdminOrdersTable({ onEdit }) {
 								<td>{quantities}</td>
 								<td>{prices}</td>
 								<td>{order.totalPrice}</td>
+								<td>{order.status}</td>
+								<td>{order.stripeSessionId}</td>
+								<td>{order.stripePaymentIntentId}</td>
+								<td>{order.processedAt}</td>
 							</tr>
 						);
 					})}

@@ -130,6 +130,9 @@ function mapOrderRow(row) {
 		cartcontent: row.cartcontent,
 		totalPrice: Number(row.totalprice),
 		status: row.status,
+		stripeSessionId: row.stripe_session_id,
+		stripePaymentIntentId: row.stripe_payment_intent_id,
+		processedAt: row.processed_at,
 	};
 }
 
