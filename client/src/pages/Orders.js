@@ -89,7 +89,13 @@ function Orders() {
 									<td>{prices}</td>
 									<td>{order.totalPrice}</td>
 									<td>{order.status}</td>
-									<td>{order.processedAt}</td>
+									<td>
+										{order.processedAt
+											? new Date(
+													order.processedAt,
+												).toLocaleString()
+											: "-"}
+									</td>
 								</tr>
 							);
 						})}

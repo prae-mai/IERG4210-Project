@@ -60,7 +60,13 @@ function AdminOrdersTable({ onEdit }) {
 								<td>{order.status}</td>
 								<td>{order.stripeSessionId}</td>
 								<td>{order.stripePaymentIntentId}</td>
-								<td>{order.processedAt}</td>
+								<td>
+									{order.processedAt
+										? new Date(
+												order.processedAt,
+											).toLocaleString()
+										: "-"}
+								</td>
 							</tr>
 						);
 					})}
