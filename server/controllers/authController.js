@@ -36,7 +36,10 @@ export async function register(req, res) {
 
 		res.status(201).json({ message: "User registered" });
 	} catch (err) {
-		res.status(400).json({ error: err.message });
+		res.status(400).json({
+			error: "REGISTER_FAILED",
+			message: err.message,
+		});
 	}
 }
 

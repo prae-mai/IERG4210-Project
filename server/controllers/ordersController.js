@@ -1,5 +1,7 @@
 import { validateId } from "../utils/validators.js";
 
+import Stripe from "stripe";
+
 import * as ordersService from "../services/ordersService.js";
 import * as paymentsService from "../services/paymentsService.js";
 
@@ -107,5 +109,43 @@ export async function createCheckoutSession(req, res) {
 	} catch (err) {
 		console.error(err);
 		res.status(400).json({ error: err.message });
+	}
+}
+
+export async function handleStripeWebhook(req, res) {
+	const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+	let event;
+
+	try {
+		event = stripe.webhooks.constructEvent(
+			req.rawBody,
+			req.headers["stripe-signature"],
+			process.env.STRIPE_WEBHOOK_SECRET,
+		);
+	} catch (err) {
+		console.error("Webhook signature verification failed:", err.message);
+		return res.status(400).send(`Webhook Error: ${err.message}`);
+	}
+
+	try {
+		if (event.type === "checkout.session.completed") {
+			const session = event.data.object;
+
+			const orderId = Number(session.metadata.orderId);
+			const digest = session.metadata.digest;
+
+			await ordersService.processSuccessfulPayment({
+				orderId,
+				digest,
+				stripeSessionId: session.id,
+				stripePaymentIntentId: session.payment_intent,
+			});
+		}
+
+		res.json({ received: true });
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ error: "Webhook processing failed" });
 	}
 }

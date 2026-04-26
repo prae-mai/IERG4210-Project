@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post("/", requireAuth, controller.create);
 router.post("/checkout-session", requireAuth, controller.createCheckoutSession);
+router.post("/webhook", controller.handleStripeWebhook);
 
 router.get("/", requireAuth, controller.getAll);
 router.get("/:id", requireAuth, controller.getById);

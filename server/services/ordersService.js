@@ -122,3 +122,61 @@ function mapOrderRow(row) {
 		totalPrice: Number(row.totalprice),
 	};
 }
+
+export async function processSuccessfulPayment({
+	orderId,
+	digest,
+	stripeSessionId,
+	stripePaymentIntentId,
+}) {
+	const rows = await dbQuery(`SELECT * FROM orders WHERE orderid = ?`, [
+		orderId,
+	]);
+
+	if (rows.length === 0) {
+		throw new Error("Order not found");
+	}
+
+	const order = rows[0];
+
+	if (order.status === "paid") {
+		return;
+	}
+
+	const cartItems = JSON.parse(order.cartcontent);
+
+	const sortedItems = [...cartItems].sort((a, b) => a.pid - b.pid);
+
+	const itemsString = sortedItems
+		.map((item) => `${item.pid}:${item.quantity}:${item.price.toFixed(2)}`)
+		.join("|");
+
+	const digestString = [
+		order.currency,
+		order.merchantemailaddress,
+		order.randomsalt,
+		itemsString,
+		Number(order.totalprice).toFixed(2),
+	].join("|");
+
+	const crypto = await import("crypto");
+
+	const recomputedDigest = crypto
+		.createHash("sha256")
+		.update(digestString)
+		.digest("hex");
+
+	if (recomputedDigest !== digest) {
+		throw new Error("Digest mismatch - possible tampering");
+	}
+
+	await dbQuery(
+		`UPDATE orders
+		 SET status = 'paid',
+		     stripe_session_id = ?,
+		     stripe_payment_intent_id = ?,
+		     processed_at = NOW()
+		 WHERE orderid = ?`,
+		[stripeSessionId, stripePaymentIntentId, orderId],
+	);
+}

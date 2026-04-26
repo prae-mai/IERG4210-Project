@@ -24,6 +24,16 @@ app.use(
 );
 app.use(express.json()); // allows JSON body
 app.use(cookieParser());
+
+app.post(
+	"/api/orders/webhook",
+	express.raw({ type: "application/json" }),
+	(req, res, next) => {
+		req.rawBody = req.body;
+		next();
+	},
+);
+
 app.use(
 	"/images/products",
 	express.static(path.join(process.cwd(), "uploads/products")),

@@ -25,12 +25,12 @@ function Login() {
 		setError("");
 
 		try {
-			await login(email, password);
+			const data = await login(email, password);
 
 			setEmail("");
 			setPassword("");
 
-			if (user.isAdmin) {
+			if (data?.user?.isAdmin) {
 				navigate("/admin");
 			}
 		} catch (err) {

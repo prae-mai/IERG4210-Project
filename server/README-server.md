@@ -53,6 +53,10 @@ CREATE TABLE orders (
   merchantemailaddress VARCHAR(200),
   randomsalt VARCHAR(200),
   cartcontent VARCHAR(2000),
-  totalprice DECIMAL(10,2)
+  totalprice DECIMAL(10,2),
+  status ENUM('pending', 'paid', 'failed') DEFAULT 'pending',
+  stripe_session_id VARCHAR(255) NULL,
+  stripe_payment_intent_id VARCHAR(255) NULL,
+  processed_at DATETIME NULL;
 );
 ```
