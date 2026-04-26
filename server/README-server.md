@@ -13,6 +13,8 @@ To run, cd inside the IERG4210-Project/server folder ``node index.js``
 
 Make sure to copy .env.example and rename it to .env and put your own secrets in .env
 
+Don't add any / in your .env URL, it'll break the links because stuff will have double //
+
 ## Create the tables
 
 This project uses MariaDB. 
