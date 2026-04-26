@@ -83,7 +83,7 @@ export async function logout(req, res) {
 export async function changePasswordHandler(req, res) {
 	try {
 		if (!req.user) {
-			return res.status(401).json({ error: "Not authenticated" });
+			return res.status(401).json({ error: "Please login to change password" });
 		}
 
 		const currentPassword = validatePassword(req.body.currentPassword);
@@ -102,7 +102,7 @@ export async function changePasswordHandler(req, res) {
 export async function me(req, res) {
 	try {
 		if (!req.user) {
-			return res.status(401).json({ error: "Not authenticated" });
+			return res.status(401).json({ error: "You are not logged in" });
 		}
 
 		res.json({ user: req.user });

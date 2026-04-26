@@ -25,7 +25,7 @@ export async function create(req, res) {
 		});
 
 		if (!req.user) {
-			return res.status(401).json({ error: "Not authenticated" });
+			return res.status(401).json({ error: "Please login to create an order" });
 		}
 
 		const result = await ordersService.createOrder({
