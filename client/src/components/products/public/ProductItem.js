@@ -44,7 +44,6 @@ function ProductItem({ product, view = "grid" }) {
 			</div>
 			<div className="product-item__content">
 				{fields
-					.filter((field) => field !== PRODUCT_FIELDS.THUMBNAIL)
 					.map((field) => {
 						const FieldComponent = FIELD_COMPONENTS[field];
 						if (!FieldComponent) return null;
