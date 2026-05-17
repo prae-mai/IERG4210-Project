@@ -10,9 +10,9 @@ function AdminOrders() {
 
 	if (!user?.isAdmin) {
 		return (
-			<div>
+			<section>
 				<p>Access denied</p>
-			</div>
+			</section>
 		);
 	}
 

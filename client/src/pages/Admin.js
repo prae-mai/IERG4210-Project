@@ -10,14 +10,14 @@ function Admin() {
 
 	if (!user?.isAdmin) {
 		return (
-			<div>
+			<section>
 				<p>Access denied</p>
-			</div>
+			</section>
 		);
 	}
 
 	return (
-		<div>
+		<section>
 			<p>Welcome to the admin page.</p>
 
 			{adminItems.map((item) => (
@@ -27,7 +27,7 @@ function Admin() {
 					</NavLink>
 				</li>
 			))}
-		</div>
+		</section>
 	);
 }
 
