@@ -7,8 +7,8 @@ import ENGLISH from "../../i18n/english";
 function AdminCategoriesTable({ onEdit }) {
 	const [categories, setCategories] = useState([]);
 	const [editingId, setEditingId] = useState(null);
-	const [newCategory, setNewCategory] = useState(null);
 	const [editData, setEditData] = useState("");
+	const [newCategory, setNewCategory] = useState(null);
 
 	useEffect(() => {
 		loadCategories();
